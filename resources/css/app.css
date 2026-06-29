@@ -1,0 +1,67 @@
+@import "tailwindcss";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+@import "@flaticon/flaticon-uicons/css/all/all.css";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@layer components {
+    .btn-primary {
+        @apply cursor-pointer bg-[#0052CC] text-white font-medium px-5 py-2.5 rounded-md transition-colors duration-200 hover:bg-[#0043a4];
+    }
+
+    .btn-danger {
+        @apply cursor-pointer bg-red-600 text-white font-medium px-3 py-2 rounded-md transition-colors duration-200 hover:bg-red-500;
+    }
+
+    .btn-success {
+        @apply cursor-pointer bg-green-600 text-white font-medium px-3 py-2 rounded-md transition-colors duration-200 hover:bg-green-500;
+    }
+
+    .btn-warning {
+        @apply cursor-pointer text-gray-700 font-medium px-3 py-2 rounded-md transition-colors duration-200 bg-amber-400 hover:bg-amber-400/70 hover:text-gray-800;
+    }
+
+    .btn-secondary {
+        @apply cursor-pointer bg-[#F4F5F7] text-[#172B4D] font-medium px-5 py-2.5 rounded-md border border-transparent transition-colors duration-200 hover:bg-[#e2e4e8];
+    }
+
+    .btn-inverted {
+        @apply cursor-pointer bg-[#22252A] text-white font-medium px-5 py-2.5 rounded-md transition-colors duration-200 hover:bg-[#15171a];
+    }
+
+    .btn-outlined {
+        @apply cursor-pointer bg-transparent text-[#172B4D] font-medium px-5 py-2.5 rounded-md border border-gray-300 transition-colors duration-200 hover:bg-gray-50 bg-white;
+    }
+
+    /* --- INPUTS --- */
+    .input-search {
+        @apply w-full bg-[#ECEEF2] text-[#172B4D] pl-10 pr-4 py-3 rounded-md border border-transparent placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#0052CC] transition-all;
+    }
+
+    /* --- CARDS & PANELS --- */
+    .ui-card {
+        @apply bg-white rounded-xl p-3 border border-white/40 shadow-sm;
+    }
+
+    /* Heading */
+    .text-heading {
+        @apply text-4xl font-semibold text-[#191b23];
+    }
+
+    /* description */
+    .text-description {
+        @apply text-lg text-[#434654];
+    }
+    /* List Style */
+    .list {
+        @apply bg-gray-200/60 border-2 border-gray-300 rounded-md shadow-sm hover:border-blue-200 cursor-pointer;
+    }
+}
+@theme {
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}
