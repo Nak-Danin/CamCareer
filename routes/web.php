@@ -3,10 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\EmployerCareerController;
-use App\Models\Application;
+use App\Http\Controllers\InterviewController;
 use App\Models\Career;
-use App\Models\CareerSeeker;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,3 +41,9 @@ Route::middleware('auth')->controller(EmployerCareerController::class)->group(fu
     Route::patch('/employer/application/{application}/{status}', 'updateApplicationStatus')->name('employer.application.update_status')->whereIn('status', ['shortlisted', 'interview', 'offered', 'rejected']);
     Route::patch('/employer/application/{application}/revoke_offer', 'revokeOffer')->name('employer.application.revoke_offer');
 });
+
+Route::middleware('auth')->controller(InterviewController::class)->group(function () {
+    Route::get('/employer/interviews', 'index')->name('employer.interviews');
+});
+
+Route::get('/test', [InterviewController::class, 'index']);

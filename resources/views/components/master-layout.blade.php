@@ -23,6 +23,7 @@ $company = Auth::user()->company;
             <x-nav-link :active="request()->is('employer/dashboard')" href="{{ route('employer.dashboard') }}">Dashboard</x-nav-link>
             <x-nav-link :active="request()->is('employer/jobs')" href="{{ route('employer.jobs') }}">Jobs</x-nav-link>
             <x-nav-link :active="request()->is('employer/candidates')" href="{{ route('employer.candidates') }}">Candidates</x-nav-link>
+            <x-nav-link :active="request()->is('employer/interviews')" href="{{ route('employer.interviews') }}">Interviews</x-nav-link>
         </div>
         <div class="flex gap-5 items-center">
             <i class="text-xl fa-regular fa-bell"></i>

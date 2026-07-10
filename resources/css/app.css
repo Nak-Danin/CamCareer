@@ -16,7 +16,7 @@
     }
 
     .btn-success {
-        @apply cursor-pointer bg-green-600 text-white font-medium px-3 py-2 rounded-md transition-colors duration-200 hover:bg-green-500;
+        @apply cursor-pointer bg-green-600 text-white font-medium px-3 py-2 rounded-md transition-colors duration-200 hover:bg-green-700/90;
     }
 
     .btn-warning {
@@ -42,7 +42,7 @@
 
     /* --- CARDS & PANELS --- */
     .ui-card {
-        @apply bg-white rounded-xl p-3 border border-white/40 shadow-sm;
+        @apply bg-white rounded-xl p-3 border border-gray-300 shadow-sm;
     }
 
     /* Heading */

@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Company::class, 'user_id', 'user_id');
     }
+    public function seeker(): HasOne
+    {
+        return $this->hasOne(CareerSeeker::class, 'user_id', 'user_id');
+    }
 }

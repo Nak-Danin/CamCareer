@@ -18,7 +18,7 @@ class EmployerCareerController extends Controller
 
         // 2. Get the count of jobs created this week
         $newJobsThisWeekCount = Career::where('company_id', $company_id)
-            ->whereDate('created_at', '>=', Carbon::now()->startOfWeek())
+            ->whereDate('careers.created_at', '>=', Carbon::now()->startOfWeek())
             ->count();
 
         // 3. Get Total Applications
@@ -34,6 +34,14 @@ class EmployerCareerController extends Controller
         // 5. Get Interview Candidates
         $interviewCandidates = $company->applications()->where('applications.status', 'interview')->count();
 
+        //6. get statistic of application
+        $thisWeekApplication = $company->applications()->whereDate('applications.created_at', '>=', Carbon::now()->startOfWeek())->count();
+        $oneWeekAgoApplication = $company->applications()->whereBetween('applications.created_at', [Carbon::now()->startOfWeek()->subWeek(), Carbon::now()->endOfWeek()->subWeek()])->count();
+        $twoWeekAgoApplication = $company->applications()->whereBetween('applications.created_at', [Carbon::now()->startOfWeek()->subWeeks(2), Carbon::now()->endOfWeek()->subWeeks(2)])->count();
+        $threeWeekAgoApplication = $company->applications()->whereBetween('applications.created_at', [Carbon::now()->startOfWeek()->subWeeks(3), Carbon::now()->endOfWeek()->subWeeks(3)])->count();
+        $fourWeekAgoApplication = $company->applications()->whereBetween('applications.created_at', [Carbon::now()->startOfWeek()->subWeeks(4), Carbon::now()->endOfWeek()->subWeeks(4)])->count();
+
+
         return view(
             'careers.employer.dashboard',
             compact(
@@ -43,7 +51,12 @@ class EmployerCareerController extends Controller
                 'recentApplied',
                 'totalCandidatesCount',
                 'candidateAppliedToday',
-                'interviewCandidates'
+                'interviewCandidates',
+                'thisWeekApplication',
+                'oneWeekAgoApplication',
+                'twoWeekAgoApplication',
+                'threeWeekAgoApplication',
+                'fourWeekAgoApplication',
             )
         );
     }

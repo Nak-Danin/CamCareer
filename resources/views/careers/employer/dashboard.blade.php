@@ -1,3 +1,21 @@
+@php
+    $chartLabels = [
+        '4 weeks ago',
+        '3 weeks ago',
+        '2 weeks ago',
+        '1 week ago',
+        'this week'
+    ];
+
+    $chartValues = [
+        $fourWeekAgoApplication,
+        $threeWeekAgoApplication,
+        $twoWeekAgoApplication,
+        $oneWeekAgoApplication,
+        $thisWeekApplication
+    ]
+@endphp
+
 <x-employer-layout heading='Employer Dashboard'>
     <div class="flex justify-between items-baseline">
         <span class="text-description   ">Welcome back, RecruitPro. Here's what's happening with your listing</span>
@@ -23,5 +41,8 @@
             title="INTERVIEWS SCHEDULED"
             :value="$interviewCandidates"
             icon="fi fi-rr-calendar" />
+    </div>
+    <div class="w-full">
+        <x-application_chart :labels='$chartLabels' :values="$chartValues" />
     </div>
 </x-employer-layout>
