@@ -4,18 +4,27 @@
             <x-job_heading :career="$career" />
             <div class="flex gap-3">
                 <x-button_link
-                    link="{{ route('employer.viewJob',['career' => $career]) }}"
+                    link="{{ route('careers.edit',['career' => $career->slug]) }}"
                     id="btn-editjob"
                     styling="btn-warning"
                     title="Update"
                     icon="fi fi-rr-pencil" />
-                @if ($career->status !== 'unavailable')
-                <x-button_link
-                    link="{{ route('employer.viewJob',['career' => $career]) }}"
-                    id="btn-close-listing"
-                    styling="btn-danger"
-                    title="Close out"
-                    icon="fi fi-rr-ban" />
+                @if ($career->status === 'available')
+                <form action="{{ route('careers.closeout',['career' => $career]) }}" method="post">
+                    @csrf @method('PATCH')
+                    <button type="submit" class="btn-danger flex items-center gap-2 w-[120px] h-[64px] font-normal border-2 border-gray-300">
+                        <i class="fi fi-rr-ban mt-1"></i>
+                        Close out
+                    </button>
+                </form>
+                @elseif(!$career->applications->contains('status', 'offered'))
+                <form action="{{ route('careers.reopen',['career' => $career]) }}" method="post">
+                    @csrf @method('PATCH')
+                    <button type="submit" class="btn-success flex items-center gap-2 w-[120px] h-[64px] font-normal border-2 border-gray-300">
+                        <i class="fi fi-rr-time-past"></i>
+                        Reopen
+                    </button>
+                </form>
                 @endif
                 <x-button_link
                     link="{{ route('employer.candidates.show',['career' => $career->slug]) }}"
@@ -27,17 +36,17 @@
         </section>
         <section class="grid grid-cols-3 gap-10">
             <x-metric-card
-            title="TOTAl APPLICATIONS"
-            :value="$applicationsCount"
-            icon="fi fi-rr-document" />
-        <x-metric-card
-            title="New Applications"
-            :value="$recentApplicationsCount"
-            icon="fi fi-rr-document" />
-        <x-metric-card
-            title="Interviews Schedule"
-            :value="$interviewsCount"
-            icon="fi fi-rr-document" />
+                title="TOTAl APPLICATIONS"
+                :value="$applicationsCount"
+                icon="fi fi-rr-document" />
+            <x-metric-card
+                title="New Applications"
+                :value="$recentApplicationsCount"
+                icon="fi fi-rr-document" />
+            <x-metric-card
+                title="Interviews Schedule"
+                :value="$interviewsCount"
+                icon="fi fi-rr-document" />
 
         </section>
         <section class="w-full bg-white border border-gray-100 shadow-sm pb-5 rounded-t-md">
@@ -51,7 +60,7 @@
                     <h1 class="text-blue-700 text-lg uppercase">Key Qualifications</h1>
                     <ul class="flex flex-col gap-3">
                         @foreach ($career->requirements as $requirement)
-                            <li class="flex gap-2 items-baseline"><i class="fi fi-ss-circle text-gray-500 text-[6px]"></i>{{ $requirement }}</li>
+                        <li class="flex gap-2 items-baseline"><i class="fi fi-ss-circle text-gray-500 text-[6px]"></i>{{ $requirement }}</li>
                         @endforeach
                     </ul>
                 </section>
@@ -59,7 +68,7 @@
                     <h1 class="text-blue-700 text-lg uppercase">Job Responsibilities</h1>
                     <ul class="flex flex-col gap-3">
                         @foreach ($career->responsibilities as $responsibility)
-                            <li class="flex gap-2 items-baseline"><i class="fi fi-ss-circle text-gray-500 text-[6px]"></i>{{ $responsibility }}</li>
+                        <li class="flex gap-2 items-baseline"><i class="fi fi-ss-circle text-gray-500 text-[6px]"></i>{{ $responsibility }}</li>
                         @endforeach
                     </ul>
                 </section>
@@ -67,16 +76,13 @@
             <div class="grid grid-cols-3 gap-5 p-5">
                 <x-job_description_card
                     title="Compensation"
-                    :value="'$ ' . $career->salary_range . ' (USD)'"
-                />
+                    :value="'$ ' . $career->salary_range . ' (USD)'" />
                 <x-job_description_card
                     title="Employment Type"
-                    :value="$career->career_type"
-                />
+                    :value="$career->career_type" />
                 <x-job_description_card
                     title="Location"
-                    :value="$career->location"
-                />
+                    :value="$career->location" />
             </div>
         </section>
     </div>

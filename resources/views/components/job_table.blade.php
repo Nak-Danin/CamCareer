@@ -33,9 +33,8 @@
             <td class="p-3 font-medium">{{ $career->applications->count() }} <span>application(s)</span></td>
             <td>
                 <div class="flex items-center justify-evenly">
-                    <a href="{{ route('employer.viewJob',['career' => $career->slug]) }}" class=" mt-3 text-green-600"><i class="fi fi-rs-eye"></i></a>
-                    <a href="" class=" mt-3 text-yellow-600"><i class="fi fi-rr-edit"></i></a>
-                    <a href="" class=" mt-3 text-red-600"><i class="fi fi-rr-trash"></i></a>
+                    <a href="{{ route('employer.viewJob',['career' => $career->slug]) }}" class=" mt-3 text-green-600 text-xl"><i class="fi fi-rs-eye"></i></a>
+                    <a href="{{ route('careers.edit',['career' => $career->slug]) }}" class=" mt-3 text-yellow-600"><i class="fi fi-rr-edit"></i></a>
                 </div>
             </td>
         </tr>

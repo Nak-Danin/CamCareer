@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use App\Models\Career;
+use App\Models\Interview;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +42,10 @@ class EmployerCareerController extends Controller
         $threeWeekAgoApplication = $company->applications()->whereBetween('applications.created_at', [Carbon::now()->startOfWeek()->subWeeks(3), Carbon::now()->endOfWeek()->subWeeks(3)])->count();
         $fourWeekAgoApplication = $company->applications()->whereBetween('applications.created_at', [Carbon::now()->startOfWeek()->subWeeks(4), Carbon::now()->endOfWeek()->subWeeks(4)])->count();
 
+        //7. get upcoming interviews
+        $upcomingInterviews = Interview::with(['application' => function ($query) {
+            $query->with(['seeker', 'career']);
+        }])->latest()->limit(3)->get();
 
         return view(
             'careers.employer.dashboard',
@@ -57,6 +62,7 @@ class EmployerCareerController extends Controller
                 'twoWeekAgoApplication',
                 'threeWeekAgoApplication',
                 'fourWeekAgoApplication',
+                'upcomingInterviews'
             )
         );
     }

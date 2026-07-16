@@ -15,7 +15,7 @@ return new class extends Migration
             $table->smallIncrements('interview_id');
             $table->foreignId('application_id')
                 ->unique()
-                ->constrained('applications', 'application_id')
+                ->constrained()
                 ->cascadeOnDelete();
             $table->date('interview_date');
             $table->time('interview_time');

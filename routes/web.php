@@ -20,10 +20,11 @@ Route::middleware('auth')->controller(CareerController::class)->group(function (
     Route::get('/careers', 'index')->name('careers');
     Route::get('/careers/create', 'create')->name('careers.create')->middleware(['can:create, App\Models\Career']);
     Route::get('/careers/{career}', 'show')->name('careers.show');
-    Route::get('/careers/edit/{career}', 'edit')->name('careers.edit')->middleware(['can:update, App\Models\Career']);
+    Route::get('/careers/edit/{career}', 'edit')->name('careers.edit')->middleware(['can:update,career']);
     Route::post('/careers', 'store')->name('careers.store');
     Route::patch('/careers/{career}', 'update')->name('careers.update');
-    Route::patch('/careers/delete/{career}', 'destroy')->name('careers.destroy')->middleware(['can:update, App\Models\Career']);
+    Route::patch('/careers/closeout/{career}', 'destroy')->name('careers.closeout')->middleware(['can:update,career']);
+    Route::patch('/careers/reopen/{career}', 'reopen')->name('careers.reopen')->middleware(['can:update,career']);
 });
 
 Route::get('/register', [AuthController::class, 'create'])->name('register');
@@ -44,6 +45,10 @@ Route::middleware('auth')->controller(EmployerCareerController::class)->group(fu
 
 Route::middleware('auth')->controller(InterviewController::class)->group(function () {
     Route::get('/employer/interviews', 'index')->name('employer.interviews');
+    Route::get('employer/interview/create/{application}', 'create')->name('employer.create_interview');
+    Route::post('employer/interviews/{application}', 'store')->name('employer.interviews.store');
+    Route::patch('/employer/interviews/{interview}/complete', 'completeInterview')->name('employer.interview.complete');
+    Route::patch('/employer/interviews/{interview}/cancel', 'cancelInterview')->name('employer.interview.cancel');
 });
 
-Route::get('/test', [InterviewController::class, 'index']);
+Route::get('/test', [InterviewController::class, 'create']);

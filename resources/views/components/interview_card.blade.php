@@ -48,8 +48,17 @@ $interview_location = $application->interview->location;
             <a href="#" class="py-1 text-blue-800 underline underline-offset-2"> Reschedule</a>
         </div>
         <div class="flex justify-between mt-3">
-            <x-button_link link='' id='cancel' icon='fi fi-sr-trash' title='Cancel' styling='btn-danger py-1 gap-1 px-2' />
-            <x-button_link link='' id='complete' icon='fi fi-bs-octagon-check' title='Complete' styling='btn-success py-1 gap-1 px-2' />
+            <form action="{{ route('employer.interview.cancel', ['interview'=>$application->interview]) }}" method="post">
+                @csrf @method('PATCH')
+                <button type="submit" class="btn-danger flex items-center gap-2 px-2 py-1 font-normal border-2 border-gray-300">
+                    <i class="fi fi-sr-trash"></i>
+                    Cancel
+                </button>
+            </form>
+            <form action="{{ route('employer.interview.complete', ['interview'=>$application->interview]) }}" method="post">
+                @csrf @method('PATCH')
+                <button type="submit" class="btn-success py-1 flex gap-1 px-2 items-center p-4 font-normal border-2 border-gray-300 w-full"><i class="fi fi-bs-octagon-check"></i>Complete</button>
+            </form>
         </div>
     </div>
     <script>

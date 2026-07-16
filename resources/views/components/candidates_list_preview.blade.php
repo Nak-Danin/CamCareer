@@ -45,11 +45,29 @@
                 @csrf @method('PATCH')
                 <button type="submit" class="btn-danger text-sm uppercase py-1">Reject</button>
             </form>
+            @if ($nextStatus === 'interview')
+            <a href="{{ route('employer.create_interview', ['application' => $application]) }}">
+                <button @disabled($application->career->status === "unavailable") type="submit" class="btn-primary text-sm uppercase py-1 disabled:cursor-not-allowed">Next</button>
+            </a>
+            @elseif($nextStatus === 'offered')
+            @if ($application->interview->status === 'cancelled')
+            <span class="text-red-800">Interview Cancelled</span>
+            @elseif ($application->interview->status !== 'completed')
+            <a href="{{ route('employer.interviews') }}" class="btn-primary text-sm uppercase py-1">Schedule</a>
+            @else
+            <form action="{{ route('employer.application.update_status', ['application' => $application, 'status' => $nextStatus]) }}"
+                method="post">
+                @csrf @method('PATCH')
+                <button @disabled($application->career->status === "unavailable") type="submit" class="btn-success text-sm uppercase py-1 disabled:cursor-not-allowed">Offer</button>
+            </form>
+            @endif
+            @else
             <form action="{{ route('employer.application.update_status', ['application' => $application, 'status' => $nextStatus]) }}"
                 method="post">
                 @csrf @method('PATCH')
                 <button @disabled($application->career->status === "unavailable") type="submit" class="btn-primary text-sm uppercase py-1 disabled:cursor-not-allowed">Next</button>
             </form>
+            @endif
         </div>
         @else
         <h1 class="rounded-md bg-green-400/90 text-green-700 font-medium py-1 text-center">Offered</h1>

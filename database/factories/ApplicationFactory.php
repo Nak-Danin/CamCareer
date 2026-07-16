@@ -22,7 +22,7 @@ class ApplicationFactory extends Factory
         return [
             'career_id' => Career::factory(),
             'seeker_id' => CareerSeeker::factory(),
-            'status' => fake()->randomElement(['applied', 'shortlisted', 'interview', 'offered', 'rejected']),
+            'status' => fake()->randomElement(['applied', 'shortlisted']),
         ];
     }
 }

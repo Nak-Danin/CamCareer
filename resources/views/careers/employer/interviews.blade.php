@@ -5,7 +5,7 @@
         @if($career->applications->count() > 0)
         <section class="flex flex-col gap-2">
             <div class="flex gap-5 items-center">
-                <h1 class="text-heading text-2xl">{{ $career->title }}</h1>
+                <a href="{{ route('employer.candidates.show',['career' => $career->slug]) }}" class="text-heading text-2xl">{{ $career->title }}</a>
                 <span class="bg-gray-300 h-fit px-3 py-1 rounded-lg text-sm">{{ $career->applications->count() }}</span>
             </div>
             <div class="grid grid-cols-3 gap-10">

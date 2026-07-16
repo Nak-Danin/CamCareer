@@ -89,13 +89,18 @@ class CareerController extends Controller
         ]);
         //update
         $career->update($validated);
-        return redirect()->route('careers.show', $career)->with('success', 'Update Successfully');
+        return redirect()->route('employer.viewJob', $career)->with('success', 'Update Successfully');
     }
     public function destroy(Career $career)
     {
         $career->update([
             'status' => 'unavailable'
         ]);
-        return redirect()->route('careers');
+        return redirect()->route('employer.viewJob', $career)->with('success', 'Close out successfully');
+    }
+    public function reopen(Career $career)
+    {
+        $career->update(['status' => 'available']);
+        return redirect()->route('employer.viewJob', $career)->with('success', 'Reopen Successfully');
     }
 }

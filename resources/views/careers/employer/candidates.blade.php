@@ -7,7 +7,7 @@
         <span class="text-blue-800 font-medium">Pipeline</span>
     </div>
     <x-job_heading :career="$career" />
-    <div class="grid grid-cols-4 gap-4 w-full">
+    <div class="grid grid-cols-4 gap-4 w-full mb-5">
         <!-- Applied -->
         <x-candidates_list_preview title="applied" :applications="$applications->where('status', 'applied')" nextStatus="shortlisted" />
         <!-- Shortlisted -->

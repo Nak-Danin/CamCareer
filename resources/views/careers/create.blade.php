@@ -4,7 +4,9 @@
     </x-slot:heading>
 
     <div class="w-full mx-auto bg-white p-6 rounded-lg shadow">
-
+        <template id="minus-button-template">
+            <x-minus_btn />
+        </template>
         <form action="{{ route('careers.store') }}" method="POST" class="space-y-6">
             @csrf
 
@@ -36,15 +38,12 @@
                 <div id="responsibilities-container" class="space-y-2">
                     <div class="flex gap-2 items-end item-row">
                         <x-input-field name="responsibilities[]" required />
-                        <button type="button"
-                            class="remove-btn h-[38px] px-3 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
-                            Remove
-                        </button>
+                        <x-minus_btn />
                     </div>
                 </div>
 
                 <button type="button" onclick="addField('responsibilities-container')"
-                    class="mt-2 px-3 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition-colors text-sm font-medium">
+                    class="mt-2 px-3 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors text-sm font-medium cursor-pointer">
                     Add Responsibility
                 </button>
             </div>
@@ -55,15 +54,12 @@
                 <div id="requirements-container" class="space-y-2">
                     <div class="flex gap-2 items-end item-row">
                         <x-input-field name="requirements[]" required />
-                        <button type="button"
-                            class="remove-btn h-[38px] px-3 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
-                            Remove
-                        </button>
+                        <x-minus_btn />
                     </div>
                 </div>
 
                 <button type="button" onclick="addField('requirements-container')"
-                    class="mt-2 px-3 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition-colors text-sm font-medium">
+                    class="mt-2 px-3 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors text-sm font-medium cursor-pointer">
                     Add Requirement
                 </button>
             </div>
@@ -74,15 +70,12 @@
                 <div id="benefits-container" class="space-y-2">
                     <div class="flex gap-2 items-end item-row">
                         <x-input-field name="benefits[]" required />
-                        <button type="button"
-                            class="remove-btn h-[38px] px-3 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
-                            Remove
-                        </button>
+                        <x-minus_btn />
                     </div>
                 </div>
 
                 <button type="button" onclick="addField('benefits-container')"
-                    class="mt-2 px-3 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition-colors text-sm font-medium">
+                    class="mt-2 px-3 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors text-sm font-medium cursor-pointer">
                     Add Benefit
                 </button>
             </div>
@@ -125,9 +118,10 @@
                 </div>
             </div>
 
-            <div>
+            <div class="flex justify-between">
+                <a href="{{ url()->previous() }}" class="w-fit px-10 cursor-pointer bg-red-600 text-white py-2 rounded-md hover:bg-red-700 transition font-medium">Go Back</a>
                 <button type="submit"
-                    class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition font-medium">
+                    class="w-fit px-10 cursor-pointer bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition font-medium">
                     Create Career
                 </button>
             </div>
@@ -138,7 +132,7 @@
         function addField(containerId) {
             const container = document.getElementById(containerId);
             const fieldName = containerId.replace('-container', '') + '[]';
-
+            const minusBtnHtml = document.getElementById('minus-button-template').innerHTML;
             const row = document.createElement('div');
             row.classList.add('flex', 'gap-2', 'items-end', 'item-row');
 
@@ -149,10 +143,7 @@
                         class="w-full px-3 py-2 border border-slate-300 rounded-lg shadow-sm text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-colors"
                         required>
                 </div>
-                <button type="button"
-                    class="remove-btn h-[38px] px-3 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
-                    Remove
-                </button>
+                ${minusBtnHtml}
             `;
 
             container.appendChild(row);

@@ -45,5 +45,5 @@
         <div class="relative h-64 w-full">
             <canvas x-ref="canvas"></canvas>
         </div>
+    </main>
 </div>
-</main>
