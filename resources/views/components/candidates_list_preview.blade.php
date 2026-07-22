@@ -5,7 +5,7 @@
 <main class="flex flex-col gap-3 w-full border-r-2 pe-3 border-gray-300">
     <section class="flex gap-4 items-center font-medium">
         <span class="text-lg uppercase">{{ $title }}</span>
-        <span class="bg-gray-300 h-fit px-3 py-1 rounded-lg text-sm">{{ $applications->count() }}</span>
+        <span class="text-count">{{ $applications->count() }}</span>
     </section>
     @foreach ($applications as $application)
     @php $candidate = $application->seeker @endphp
@@ -40,15 +40,22 @@
         </div>
         @if ($nextStatus !== '')
         <div class="flex justify-between items-center">
-            <form action="{{ route('employer.application.update_status', ['application' => $application, 'status' => 'rejected']) }}"
+            <form action="{{ route('employer.application.reject', ['application' => $application]) }}"
                 method="post">
                 @csrf @method('PATCH')
                 <button type="submit" class="btn-danger text-sm uppercase py-1">Reject</button>
             </form>
             @if ($nextStatus === 'interview')
-            <a href="{{ route('employer.create_interview', ['application' => $application]) }}">
-                <button @disabled($application->career->status === "unavailable") type="submit" class="btn-primary text-sm uppercase py-1 disabled:cursor-not-allowed">Next</button>
-            </a>
+            <form action="{{ route('employer.create_interview', ['application' => $application]) }}" method="POST" class="inline-block">
+                @csrf
+                <button
+                    @disabled($application->career->status === "unavailable")
+                    type="submit"
+                    class="btn-primary text-sm uppercase py-1 disabled:cursor-not-allowed"
+                    >
+                    Next
+                </button>
+            </form>
             @elseif($nextStatus === 'offered')
             @if ($application->interview->status === 'cancelled')
             <span class="text-red-800">Interview Cancelled</span>

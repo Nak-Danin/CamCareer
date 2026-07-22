@@ -23,7 +23,8 @@ class InterviewController extends Controller
                         ->with(['seeker', 'interview']);
                 }
             ])->get();
-        return view('careers.employer.interviews', compact('careers'));
+        $interviews_count = $careers->count();
+        return view('careers.employer.interviews', compact('careers', 'interviews_count'));
     }
 
     public function completeInterview(Interview $interview)
@@ -60,5 +61,26 @@ class InterviewController extends Controller
         Interview::create($validates);
         $application->update(['status' => 'interview']);
         return redirect()->route('employer.interviews')->with('success', 'schedule created successfully');
+    }
+
+    public function update(Request $request, Interview $interview)
+    {
+        $validates = $request->validate([
+            'interview_date' => ['date', 'required', 'after_or_equal:today'],
+            'interview_time' => ['required', 'date_format:H:i'],
+            'location' => ['nullable', 'string', 'max:255'],
+            'meeting_link' => ['nullable', 'url'],
+            'status' => ['in:scheduled,rescheduled,completed,cancelled']
+        ]);
+        $validates['application_id'] = $interview->application->id;
+        $validates['meeting_link'] = $request->input('meeting_link', null);
+        $validates['status'] = 'rescheduled';
+        $interview->update($validates);
+        return redirect()->route('employer.interviews')->with('success', 'interview rescheduled successfully');
+    }
+
+    public function edit(Interview $interview)
+    {
+        return view('careers.employer.edit_interview', compact('interview'));
     }
 }

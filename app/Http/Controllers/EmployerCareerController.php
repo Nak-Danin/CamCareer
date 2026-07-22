@@ -26,6 +26,8 @@ class EmployerCareerController extends Controller
         $totalApplications = $company->applications();
         $totalApplicationsCount = $totalApplications->count();
         $recentApplied = $totalApplications->whereBetween('applications.created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
+        $tableApplications = $company->applications()->whereNotIn('applications.status', ['rejected', 'offered'])->latest()->limit(5)->get();
+
 
         // 4. Get Total Candidates
         $totalCandidates = $totalApplications->distinct('applications.seeker_id');
@@ -62,7 +64,8 @@ class EmployerCareerController extends Controller
                 'twoWeekAgoApplication',
                 'threeWeekAgoApplication',
                 'fourWeekAgoApplication',
-                'upcomingInterviews'
+                'upcomingInterviews',
+                'tableApplications'
             )
         );
     }
@@ -105,6 +108,11 @@ class EmployerCareerController extends Controller
         }
         $application->update(['status' => $status]);
         return redirect()->back()->with('success', 'update status successfully');
+    }
+    public function rejectApplication(Application $application)
+    {
+        $application->update(['status' => 'rejected']);
+        return redirect()->back()->with('success', 'reject applicaiton successfully');
     }
     public function revokeOffer(Application $application)
     {

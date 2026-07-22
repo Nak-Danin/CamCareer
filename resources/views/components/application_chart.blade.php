@@ -35,7 +35,7 @@
     }"
     class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
     <main class="flex flex-col gap-4">
-        <div class="flex justify-between items-center px-10">
+        <div class="flex justify-between items-center px-5">
             <aside class="flex flex-col">
                 <h1 class="text-heading text-2xl">Job Performance</h1>
                 <span class="text-gray-500 text-[12px] font-medium">Applications trend over the last 30 days</span>

@@ -6,7 +6,6 @@
             <!-- This renders your <i class="fi fi-rr-briefcase"></i> dynamically -->
             <i class="{{ $icon }}"></i> 
         </div>
-
         <!-- Optional Green Badge -->
         @if($badgeText)
             <span class="px-2.5 py-1 text-xs font-semibold text-emerald-700 bg-emerald-50 rounded-md">

@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Auth;
 $company = Auth::user()->company;
 ?>
 <x-master-layout>
-    <main class="flex h-full relative">
-        <aside class="flex flex-col absolute h-[calc(100vh-60px)] top-0 left-0 gap-5 w-1/5 bg-[#f3f3fd] border-r border-gray-200 pt-5 px-3">
+    <main class="flex h-[calc(100vh-60px)] relative">
+        <aside class="flex flex-col absolute h-[calc(100vh-60px)] overflow-y-hidden top-0 left-0 gap-5 w-1/5 bg-[#f3f3fd] border-r border-gray-200 pt-5 px-3">
             <div class="flex gap-4">
                 <img class="w-[45px] h-[45px]" src="{{ $company->logo_url ? Storage::url($company->logo_url) : Vite::asset('resources/images/image.png') }}" alt="Company Logo">
                 <div class="flex flex-col">
@@ -23,7 +23,7 @@ $company = Auth::user()->company;
                 <a class="flex gap-3 items-center btn-primary" href="{{ route('careers.create') }}" :active="request()->is('careers/create')"><i class="fi fi-br-plus"></i>Post New Job</a>
             </div>
         </aside>
-        <aside class="flex flex-col absolute h-[calc(100vh-60px)] top-0 right-0 overflow-y-scroll gap-3 w-4/5 h-screeen pt-5 px-10 bg-[#faf8ff]">
+        <aside class="flex flex-col absolute top-0 right-0 h-full overflow-y-scroll gap-3 w-4/5 pt-5 px-10 bg-[#faf8ff]">
             <h1 class="text-heading">{{ $heading }}</h1>
             {{ $slot }}
         </aside>

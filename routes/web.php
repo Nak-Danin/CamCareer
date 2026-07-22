@@ -39,16 +39,19 @@ Route::middleware('auth')->controller(EmployerCareerController::class)->group(fu
     Route::get('/employer/jobs/{career}', 'viewJob')->name('employer.viewJob');
     Route::get('/employer/candidates', 'candidates')->name('employer.candidates');
     Route::get('/employer/applications/{career}', 'jobApplications')->name('employer.candidates.show');
-    Route::patch('/employer/application/{application}/{status}', 'updateApplicationStatus')->name('employer.application.update_status')->whereIn('status', ['shortlisted', 'interview', 'offered', 'rejected']);
+    Route::patch('/employer/application/{application}/{status}', 'updateApplicationStatus')->name('employer.application.update_status')->whereIn('status', ['shortlisted', 'interview', 'offered']);
+    Route::patch('/employer/application/{application}/reject', 'rejectApplication')->name('employer.application.reject');
     Route::patch('/employer/application/{application}/revoke_offer', 'revokeOffer')->name('employer.application.revoke_offer');
 });
 
 Route::middleware('auth')->controller(InterviewController::class)->group(function () {
     Route::get('/employer/interviews', 'index')->name('employer.interviews');
     Route::get('employer/interview/create/{application}', 'create')->name('employer.create_interview');
+    Route::get('/employer/interviews/{interview}/edit', 'edit')->name('employer.interview.edit');
     Route::post('employer/interviews/{application}', 'store')->name('employer.interviews.store');
     Route::patch('/employer/interviews/{interview}/complete', 'completeInterview')->name('employer.interview.complete');
     Route::patch('/employer/interviews/{interview}/cancel', 'cancelInterview')->name('employer.interview.cancel');
+    Route::patch('/employer/interviews/{interview}/update', 'update')->name('employer.interview.update');
 });
 
 Route::get('/test', [InterviewController::class, 'create']);
