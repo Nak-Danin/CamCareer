@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\EmployerCareerController;
 use App\Http\Controllers\InterviewController;
+use App\Http\Controllers\SettingController;
 use App\Models\Career;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,12 @@ Route::middleware('auth')->controller(InterviewController::class)->group(functio
     Route::patch('/employer/interviews/{interview}/complete', 'completeInterview')->name('employer.interview.complete');
     Route::patch('/employer/interviews/{interview}/cancel', 'cancelInterview')->name('employer.interview.cancel');
     Route::patch('/employer/interviews/{interview}/update', 'update')->name('employer.interview.update');
+});
+
+Route::middleware('auth')->controller(SettingController::class)->group(function () {
+    Route::get('/employer/settings', 'employerSettings')->name('employer.settings');
+    Route::get('/employer/settings/{company}/edit', 'employerSettingsEdit')->name('employer.settings.edit');
+    Route::patch('/employer/settings/{company}/update', 'employerSettingsUpdate')->name('employer.settings.update');
 });
 
 Route::get('/test', [InterviewController::class, 'create']);

@@ -30,7 +30,7 @@ $company = Auth::user()->company;
                 <i class="text-xl fa-regular fa-bell"></i>
                 <i class="text-xl fa-regular fa-circle-question"></i>
                 <i class="text-xl fa-solid fa-grip-lines-vertical"></i>
-                <img class="w-[30px] h-[30px]" src="{{$company->logo_url ? Storage::url($company->logo_url) : Vite::asset('resources/images/image.png') }}" alt="Company Logo">
+                <img class="w-[30px] h-[30px] rounded-md" src="{{$company->logo_url ? Storage::url($company->logo_url) : Vite::asset('resources/images/image.png') }}" alt="Company Logo">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit"
