@@ -14,7 +14,7 @@
     </thead>
     <tbody>
         @foreach ($careers as $career)
-        <tr class="border-t-2 border-gray-300 odd:bg-white even:bg-gray-100">
+        <tr class="job-row border-t-2 border-gray-300 odd:bg-white even:bg-gray-100" data-status="{{ $career->status }}">
             <td class="p-3 flex flex-col">
                 <span class="font-medium">
                     {{ $career->title }}

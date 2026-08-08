@@ -71,8 +71,9 @@ class EmployerCareerController extends Controller
     }
     public function jobs()
     {
-        $careers = Career::companyCareers()->latest()->paginate(5);
-        return view('careers.employer.jobs', compact('careers'));
+        $careers = Career::companyCareers()->get();
+        $paginateAll = Career::companyCareers()->latest()->paginate(5);
+        return view('careers.employer.jobs', compact('careers', 'paginateAll'));
     }
     public function viewJob(Career $career)
     {
