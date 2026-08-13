@@ -10,20 +10,37 @@ use Illuminate\Support\Facades\Auth;
 
 class InterviewController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $company = Auth::user()->company;
+        $type = $request->query('type', 'upcoming'); // Defaults to 'upcoming'
+
+        // Define status filter logic based on request
+        $interviewStatusCallback = function ($q) use ($type) {
+            if ($type === 'past') {
+                $q->whereIn('status', ['completed', 'cancelled']);
+            } else {
+                $q->whereNotIn('status', ['completed', 'cancelled']);
+            }
+        };
+
         $careers = Career::where('company_id', $company->company_id)
+            ->whereHas('applications', function ($query) use ($interviewStatusCallback) {
+                $query->where('status', 'interview')
+                    ->whereHas('interview', $interviewStatusCallback);
+            })
             ->with([
-                'applications' => function ($query) {
+                'applications' => function ($query) use ($interviewStatusCallback) {
                     $query->where('status', 'interview')
-                        ->whereHas('interview', function ($q) {
-                            $q->whereNotIn('status', ['completed', 'cancelled']);
-                        })
+                        ->whereHas('interview', $interviewStatusCallback)
                         ->with(['seeker', 'interview']);
                 }
-            ])->get();
-        $interviews_count = $careers->count();
+            ])
+            ->get();
+
+        // Total count of matching interview applications across all careers
+        $interviews_count = $careers->sum(fn($career) => $career->applications->count());
+
         return view('careers.employer.interviews', compact('careers', 'interviews_count'));
     }
 

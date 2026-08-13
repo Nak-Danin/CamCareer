@@ -56,8 +56,11 @@ $interview_location = $application->interview->location;
         </div>
         <div class="flex justify-between items-center mt-3">
             <span class="flex justify-end text-[12px] uppercase">Applied {{ $application->created_at->diffForHumans() }}</span>
+            @if(!in_array($interview->status, ['completed', 'cancelled']))
             <a href="{{ route('employer.interview.edit', ['interview' => $interview]) }}" class="py-1 text-blue-800 underline underline-offset-2"> Reschedule</a>
+            @endif
         </div>
+        @if(!in_array($interview->status, ['completed', 'cancelled']))
         <div class="flex justify-between mt-3">
             <form action="{{ route('employer.interview.cancel', ['interview'=>$application->interview]) }}" method="post">
                 @csrf @method('PATCH')
@@ -71,6 +74,9 @@ $interview_location = $application->interview->location;
                 <button type="submit" class="btn-success py-1 flex gap-1 px-2 items-center p-4 font-normal border-2 border-gray-300 w-full"><i class="fi fi-bs-octagon-check"></i>Complete</button>
             </form>
         </div>
+        @else
+        <span class="rounded-md mt-2 w-full text-center py-3 {{ $interview->status == 'completed' ? 'text-green-600 bg-green-100':'text-red-600 bg-red-100' }} ">Interview {{ $interview->status }}</span>
+        @endif
     </div>
     <script>
         function copyEmail(email) {
