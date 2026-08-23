@@ -55,8 +55,8 @@
         @endforeach
     </main>
     @else
-    <span>
-        {{ request('type') === 'past' ? "There's currently no past interview" : "There's currently no upcoming interview" }}
+    <span class="text-lg text-gray-600 border-t-2 border-gray-500 pt-8">
+        {{ request('type') === 'past' ? "There's no record of any past interview" : "Currently, there's no record of any upcoming interview" }}
     </span>
     @endif
 </x-employer-layout>

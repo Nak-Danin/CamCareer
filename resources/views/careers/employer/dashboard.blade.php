@@ -58,10 +58,11 @@ $weekStart->addWeek();
                 </form>
 
                 {{-- Export --}}
-                <button class="btn-outlined flex gap-3 items-center">
+                <a href="{{ route('dashboard.export-pdf', ['month' => $selectedMonth]) }}"
+                    class="btn-outlined flex gap-3 items-center">
                     <i class="fi fi-bs-download"></i>
                     Export Report
-                </button>
+                </a>
 
             </div>
         </div>

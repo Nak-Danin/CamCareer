@@ -3,62 +3,228 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\EmployerCareerController;
+use App\Http\Controllers\EmployerDashboardController;
 use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\SettingController;
-use App\Models\Career;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->get('/', function () {
-    $user = Auth::user();
-    return view('welcome', compact('user'));
-})->name('welcome')->middleware('no.employers');
-Route::get('/test', function () {
-    $companies = Career::companyCareers()->get();
-    dd($companies);
-});
-Route::middleware('auth')->controller(CareerController::class)->group(function () {
-    Route::get('/careers', 'index')->name('careers');
-    Route::get('/careers/create', 'create')->name('careers.create')->middleware(['can:create, App\Models\Career']);
-    Route::get('/careers/{career}', 'show')->name('careers.show');
-    Route::get('/careers/edit/{career}', 'edit')->name('careers.edit')->middleware(['can:update,career']);
-    Route::post('/careers', 'store')->name('careers.store');
-    Route::patch('/careers/{career}', 'update')->name('careers.update');
-    Route::patch('/careers/closeout/{career}', 'destroy')->name('careers.closeout')->middleware(['can:update,career']);
-    Route::patch('/careers/reopen/{career}', 'reopen')->name('careers.reopen')->middleware(['can:update,career']);
+
+/*
+|--------------------------------------------------------------------------
+| Authentication
+|--------------------------------------------------------------------------
+*/
+
+// Registration
+Route::get('/register', [AuthController::class, 'create'])
+    ->name('register');
+
+Route::post('/register', [AuthController::class, 'store'])
+    ->name('auth.store');
+
+// Login
+Route::get('/login', [AuthController::class, 'login'])
+    ->name('login');
+
+Route::post('/login', [AuthController::class, 'authenticate'])
+    ->name('auth.authenticate');
+
+// Logout
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
+
+
+/*
+|--------------------------------------------------------------------------
+| Seeker
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'no.employers'])->group(function () {
+
+    // Seeker Home
+    Route::get('/', function () {
+        $user = Auth::user();
+
+        return view('welcome', compact('user'));
+    })->name('welcome');
+
+
+    // Careers
+    Route::controller(CareerController::class)->group(function () {
+
+        Route::get('/careers', 'index')
+            ->name('careers');
+
+        Route::get('/careers/create', 'create')
+            ->name('careers.create')
+            ->middleware('can:create, App\Models\Career');
+
+        Route::post('/careers', 'store')
+            ->name('careers.store');
+
+        Route::get('/careers/{career}', 'show')
+            ->name('careers.show');
+
+        Route::get('/careers/edit/{career}', 'edit')
+            ->name('careers.edit')
+            ->middleware('can:update,career');
+
+        Route::patch('/careers/{career}', 'update')
+            ->name('careers.update');
+
+        Route::patch('/careers/closeout/{career}', 'destroy')
+            ->name('careers.closeout')
+            ->middleware('can:update,career');
+
+        Route::patch('/careers/reopen/{career}', 'reopen')
+            ->name('careers.reopen')
+            ->middleware('can:update,career');
+    });
 });
 
-Route::get('/register', [AuthController::class, 'create'])->name('register');
-Route::post('/register', [AuthController::class, 'store'])->name('auth.store');
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'authenticate'])->name('auth.authenticate');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::middleware('auth')->controller(EmployerCareerController::class)->group(function () {
-    Route::get('/employer/dashboard', 'index')->name('employer.dashboard');
-    Route::get('/employer/jobs', 'jobs')->name('employer.jobs');
-    Route::get('/employer/jobs/{career}', 'viewJob')->name('employer.viewJob');
-    Route::get('/employer/candidates', 'candidates')->name('employer.candidates');
-    Route::get('/employer/applications/{career}', 'jobApplications')->name('employer.candidates.show');
-    Route::patch('/employer/application/{application}/{status}', 'updateApplicationStatus')->name('employer.application.update_status')->whereIn('status', ['shortlisted', 'interview', 'offered']);
-    Route::patch('/employer/application/{application}/reject', 'rejectApplication')->name('employer.application.reject');
-    Route::patch('/employer/application/{application}/revoke_offer', 'revokeOffer')->name('employer.application.revoke_offer');
+/*
+|--------------------------------------------------------------------------
+| Employer
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Employer Dashboard & Jobs
+    |--------------------------------------------------------------------------
+    */
+
+    Route::controller(EmployerCareerController::class)->group(function () {
+
+        Route::get('/employer/dashboard', 'index')
+            ->name('employer.dashboard');
+
+        Route::get('/employer/jobs', 'jobs')
+            ->name('employer.jobs');
+
+        Route::get('/employer/jobs/{career}', 'viewJob')
+            ->name('employer.viewJob');
+
+        Route::get('/employer/candidates', 'candidates')
+            ->name('employer.candidates');
+
+        Route::get('/employer/applications/{career}', 'jobApplications')
+            ->name('employer.candidates.show');
+
+
+        // Application status
+        Route::patch(
+            '/employer/application/{application}/{status}',
+            'updateApplicationStatus'
+        )
+            ->name('employer.application.update_status')
+            ->whereIn('status', [
+                'shortlisted',
+                'interview',
+                'offered'
+            ]);
+
+        Route::patch(
+            '/employer/application/{application}/reject',
+            'rejectApplication'
+        )
+            ->name('employer.application.reject');
+
+        Route::patch(
+            '/employer/application/{application}/revoke_offer',
+            'revokeOffer'
+        )
+            ->name('employer.application.revoke_offer');
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Employer Interviews
+    |--------------------------------------------------------------------------
+    */
+
+    Route::controller(InterviewController::class)->group(function () {
+
+        Route::get('/employer/interviews', 'index')
+            ->name('employer.interviews');
+
+        Route::get('/employer/interview/create/{application}', 'create')
+            ->name('employer.create_interview');
+
+        Route::post('/employer/interviews/{application}', 'store')
+            ->name('employer.interviews.store');
+
+        Route::get('/employer/interviews/{interview}/edit', 'edit')
+            ->name('employer.interview.edit');
+
+        Route::patch('/employer/interviews/{interview}/update', 'update')
+            ->name('employer.interview.update');
+
+        Route::patch('/employer/interviews/{interview}/complete', 'completeInterview')
+            ->name('employer.interview.complete');
+
+        Route::patch('/employer/interviews/{interview}/cancel', 'cancelInterview')
+            ->name('employer.interview.cancel');
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Employer Settings
+    |--------------------------------------------------------------------------
+    */
+
+    Route::controller(SettingController::class)->group(function () {
+
+        Route::get('/employer/settings', 'employerSettings')
+            ->name('employer.settings');
+
+        Route::get('/employer/settings/{company}/edit', 'employerSettingsEdit')
+            ->name('employer.settings.edit');
+
+        Route::patch('/employer/settings/{company}/update', 'employerSettingsUpdate')
+            ->name('employer.settings.update');
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Employer Reports
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/dashboard/export-pdf', [
+        EmployerDashboardController::class,
+        'exportPdf'
+    ])->name('dashboard.export-pdf');
 });
 
-Route::middleware('auth')->controller(InterviewController::class)->group(function () {
-    Route::get('/employer/interviews', 'index')->name('employer.interviews');
-    Route::get('employer/interview/create/{application}', 'create')->name('employer.create_interview');
-    Route::get('/employer/interviews/{interview}/edit', 'edit')->name('employer.interview.edit');
-    Route::post('employer/interviews/{application}', 'store')->name('employer.interviews.store');
-    Route::patch('/employer/interviews/{interview}/complete', 'completeInterview')->name('employer.interview.complete');
-    Route::patch('/employer/interviews/{interview}/cancel', 'cancelInterview')->name('employer.interview.cancel');
-    Route::patch('/employer/interviews/{interview}/update', 'update')->name('employer.interview.update');
-});
 
-Route::middleware('auth')->controller(SettingController::class)->group(function () {
-    Route::get('/employer/settings', 'employerSettings')->name('employer.settings');
-    Route::get('/employer/settings/{company}/edit', 'employerSettingsEdit')->name('employer.settings.edit');
-    Route::patch('/employer/settings/{company}/update', 'employerSettingsUpdate')->name('employer.settings.update');
-});
+/*
+|--------------------------------------------------------------------------
+| Fallback - Invalid Routes
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/test', [InterviewController::class, 'create']);
+Route::fallback(function () {
+
+    if (!Auth::check()) {
+        return redirect()->route('login');
+    }
+
+    if (Auth::user()->role === 'employer') {
+        return redirect()->route('employer.dashboard');
+    }
+
+    if (Auth::user()->role === 'seeker') {
+        return redirect()->route('careers');
+    }
+
+    return redirect()->route('login');
+});

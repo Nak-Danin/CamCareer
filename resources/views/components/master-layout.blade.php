@@ -18,19 +18,15 @@ $company = Auth::user()->company;
 <body>
     @can('create', App\Models\Career::class)
     <main class="w-screen h-screen">
-        <nav class="flex justify-between sticky items-center top-0 px-6 h-[60px] border-b-1 border-gray-200 bg-[#faf8ff]">
-            <div class="flex gap-5">
-                <img class="w-[80px] h-[40px]" src="{{ Vite::asset('resources/images/company_logo.png') }}" alt="Company Logo">
-                <x-nav-link :active="request()->is('employer/dashboard')" href="{{ route('employer.dashboard') }}">Dashboard</x-nav-link>
-                <x-nav-link :active="request()->is('employer/jobs')" href="{{ route('employer.jobs') }}">Jobs</x-nav-link>
-                <x-nav-link :active="request()->is('employer/candidates')" href="{{ route('employer.candidates') }}">Candidates</x-nav-link>
-                <x-nav-link :active="request()->is('employer/interviews')" href="{{ route('employer.interviews') }}">Interviews</x-nav-link>
-            </div>
+        <nav class="flex justify-between sticky items-center top-0 px-6 h-[60px] border-b-2 border-gray-200 bg-[#faf8ff]">
+            <img class="w-[80px] h-[40px]" src="{{ Vite::asset('resources/images/company_logo.png') }}" alt="Company Logo">
             <div class="flex gap-5 items-center">
                 <i class="text-xl fa-regular fa-bell"></i>
                 <i class="text-xl fa-regular fa-circle-question"></i>
                 <i class="text-xl fa-solid fa-grip-lines-vertical"></i>
-                <img class="w-[30px] h-[30px] rounded-md" src="{{$company->logo_url ? Storage::url($company->logo_url) : Vite::asset('resources/images/image.png') }}" alt="Company Logo">
+                <a href="{{ route('employer.settings') }}">
+                    <img class="w-[30px] h-[30px] rounded-md" src="{{$company->logo_url ? Storage::url($company->logo_url) : Vite::asset('resources/images/image.png') }}" alt="Company Logo">
+                </a>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit"
