@@ -17,15 +17,27 @@
                 value="{{ old('title') }}"
                 required />
 
-            <x-input-field
-                label="Salary Range"
-                name="salary_range"
-                value="{{ old('salary_range', 'Negotiable') }}" />
+            <div class="grid grid-cols-2 gap-10 items-center">
+                <x-input-field
+                    label="Salary Range"
+                    name="salary_range"
+                    value="{{ old('salary_range', 'Negotiable') }}" />
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-slate-700" for="category_id">Category</label>
+                    <select class="p-2 text-sm w-full rounded-md bg-gray-100/60 border border-slate-300 focus:border-indigo-500 focus:outline-none" name="category_id">
+                        @foreach ($categories as $category)
+                        <option value="{{ $category->category_id }}">
+                            {{ Str::ucfirst($category->category_name) }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700">Description</label>
                 <textarea name="description" id="description" rows="5"
-                    class="p-3 mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('description') border-red-500 @enderror"
+                    class="p-3 mt-1 w-full rounded-md bg-gray-100/60 border border-slate-300 focus:border-indigo-500 focus:outline-none @error('description') border-red-500 @enderror"
                     required>{{ old('description') }}</textarea>
                 @error('description')
                 <span class="text-xs text-red-600 font-medium">{{ $message }}</span>

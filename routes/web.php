@@ -44,19 +44,27 @@ Route::post('/logout', [AuthController::class, 'logout'])
 Route::middleware(['auth', 'no.employers'])->group(function () {
 
     // Seeker Home
-    Route::get('/', function () {
-        $user = Auth::user();
-
-        return view('welcome', compact('user'));
-    })->name('welcome');
-
+    Route::get('/', [CareerController::class, 'index'])->name('seeker.home');
 
     // Careers
+    Route::get('/careers', [CareerController::class, 'index'])->name('seeker.careers');
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| Employer
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'employer'])->group(function () {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Employer Dashboard & Jobs
+    |--------------------------------------------------------------------------
+    */
     Route::controller(CareerController::class)->group(function () {
-
-        Route::get('/careers', 'index')
-            ->name('careers');
-
         Route::get('/careers/create', 'create')
             ->name('careers.create')
             ->middleware('can:create, App\Models\Career');
@@ -82,22 +90,6 @@ Route::middleware(['auth', 'no.employers'])->group(function () {
             ->name('careers.reopen')
             ->middleware('can:update,career');
     });
-});
-
-
-/*
-|--------------------------------------------------------------------------
-| Employer
-|--------------------------------------------------------------------------
-*/
-
-Route::middleware('auth')->group(function () {
-
-    /*
-    |--------------------------------------------------------------------------
-    | Employer Dashboard & Jobs
-    |--------------------------------------------------------------------------
-    */
 
     Route::controller(EmployerCareerController::class)->group(function () {
 
@@ -108,13 +100,13 @@ Route::middleware('auth')->group(function () {
             ->name('employer.jobs');
 
         Route::get('/employer/jobs/{career}', 'viewJob')
-            ->name('employer.viewJob');
+            ->name('employer.viewJob')->middleware('can:view,career');
 
         Route::get('/employer/candidates', 'candidates')
             ->name('employer.candidates');
 
         Route::get('/employer/applications/{career}', 'jobApplications')
-            ->name('employer.candidates.show');
+            ->name('employer.candidates.show')->middleware('can:view,career');
 
 
         // Application status
@@ -223,7 +215,7 @@ Route::fallback(function () {
     }
 
     if (Auth::user()->role === 'seeker') {
-        return redirect()->route('careers');
+        return redirect()->route('seeker.home');
     }
 
     return redirect()->route('login');

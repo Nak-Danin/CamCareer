@@ -10,57 +10,56 @@
         <form action="{{ route('careers.update',['career' => $career]) }}" method="POST" class="space-y-6">
             @csrf
             @method('PATCH')
-
-            <x-input-field
-                label="Job Title"
-                name="title"
-                maxlength="150"
-                value="{{ old('title', $career->title) }}"
-                required />
-
-            <x-input-field
-                label="Salary Range"
-                name="salary_range"
-                value="{{ old('salary_range', $career->salary_range ?? 'Negotiable') }}" />
-
-
-            @if (!$career->applications->contains('status', 'offered'))
-            <!-- Job Status Dropdown -->
-            <div class="custom-dropdown">
-                <label class="block text-sm font-medium text-gray-700">Job Status</label>
-
-                <!-- Hidden input to store the status value for the form submission -->
-                <input type="hidden" name="status" id="status_hidden" value="{{ old('status', $career->status ?? 'available') }}" required>
-
-                <div class="mt-1 relative w-full">
-                    <button type="button" id="status_button"
-                        class="flex justify-between items-center p-2 w-full text-left rounded-md border border-gray-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-sm text-gray-700">
-                        <span id="status_label">
-                            @php
-                            $selectedStatus = old('status', $career->status ?? 'available');
-                            @endphp
-                            @if($selectedStatus == 'available')
+            @php
+            $visibleStatus = !$career->applications->contains('status', 'offered');
+            @endphp
+            <div class="grid {{ $visibleStatus? 'grid-cols-2' : 'grid-cols-1' }} gap-10 items-center">
+                <x-input-field
+                    label="Job Title"
+                    name="title"
+                    maxlength="150"
+                    value="{{ old('title', $career->title) }}"
+                    required />
+                @if ($visibleStatus)
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-slate-700" for="status">Status</label>
+                    <select class="p-2 text-sm w-full rounded-md bg-gray-100/60 border border-slate-300 focus:border-indigo-500 focus:outline-none" name="status">
+                        <option
+                            value="available"
+                            @selected(old('status', $career->status) == 'available')
+                            >
                             Available
-                            @elseif($selectedStatus == 'unavailable')
+                        </option>
+                        <option
+                            value="unavailable"
+                            @selected(old('status', $career->status) == 'unavailable')
+                            >
                             Unavailable
-                            @else
-                            Select Status
-                            @endif
-                        </span>
-                        <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
+                        </option>
+                    </select>
+                </div>
+                @endif
+            </div>
 
-                    <div id="status_menu" class="hidden mt-1 w-full rounded-md border border-gray-200 bg-white shadow-inner overflow-hidden">
-                        <div class="p-1 space-y-1">
-                            <button type="button" data-value="available" class="dropdown-item-btn block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 rounded-md">Available</button>
-                            <button type="button" data-value="unavailable" class="dropdown-item-btn block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 rounded-md">Unavailable</button>
-                        </div>
-                    </div>
+            <div class="grid grid-cols-2 gap-10 items-center">
+                <x-input-field
+                    label="Salary Range"
+                    name="salary_range"
+                    value="{{ old('salary_range', 'Negotiable') }}" />
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-slate-700" for="category_id">Category</label>
+                    <select class="p-2 text-sm w-full rounded-md bg-gray-100/60 border border-slate-300 focus:border-indigo-500 focus:outline-none" name="category_id">
+                        @foreach ($categories as $category)
+                        <option
+                            value="{{ $category->category_id }}"
+                            @selected(old('category_id', $career->category_id) == $category->category_id)
+                            >
+                            {{ Str::ucfirst($category->category_name) }}
+                        </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
-            @endif
 
             <div>
                 <label class="block text-sm font-medium text-gray-700">Description</label>

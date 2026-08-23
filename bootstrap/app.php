@@ -12,7 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'no.employers' => \App\Http\Middleware\RedirectIfEmployer::class
+            'no.employers' => \App\Http\Middleware\RedirectIfEmployer::class,
+            'employer' => \App\Http\Middleware\EmployerMiddlware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -21,7 +21,7 @@ class CompanyFactory extends Factory
         $company_name = fake()->company();
         $clean_name = strtolower(preg_replace('/[^A-Za-z0-9-,]/', '', $company_name));
         $tld = fake()->randomElement(['org', 'com', 'io', 'plc']);
-        $industry = ['Technology', 'Sale', 'Banking&Finance', 'Education', 'Sport', 'Service'];
+        $industry = ['Technology', 'Sale', 'Banking & Finance', 'Education', 'Sport', 'Service'];
         $realisticDescriptions = [
             "We are a fast-growing tech startup focused on building the next generation of remote collaboration tools. We value inclusivity, innovation, and asynchronous work.",
             "A leading digital marketing agency dedicated to helping small businesses scale their online presence. Founded in 2018, we manage over 200 global clients.",

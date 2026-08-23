@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Career;
+use App\Models\Category;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -22,8 +23,9 @@ class CareerFactory extends Factory
         $title = fake()->jobTitle();
         return [
             'company_id' => Company::factory(),
+            'category_id' => Category::factory(),
             'title' => $title,
-            'slug' => Str::slug($title),
+            'slug' => Str::slug($title) . '-' . fake()->unique()->numberBetween(2, 100),
             'description' => fake()->paragraph(3, true),
 
             // Storing as a proper PHP array for JSON columns

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 
+$seeker = Auth::user()->seeker;
 $company = Auth::user()->company;
 ?>
 
@@ -17,7 +18,7 @@ $company = Auth::user()->company;
 
 <body>
     @can('create', App\Models\Career::class)
-    <main class="w-screen h-screen">
+    <main class="w-full h-screen">
         <nav class="flex justify-between sticky items-center top-0 px-6 h-[60px] border-b-2 border-gray-200 bg-[#faf8ff]">
             <img class="w-[80px] h-[40px]" src="{{ Vite::asset('resources/images/company_logo.png') }}" alt="Company Logo">
             <div class="flex gap-5 items-center">
@@ -42,6 +43,39 @@ $company = Auth::user()->company;
         </section>
     </main>
     @endcan
+    @can('viewAny', App\Models\Career::class)
+    <main class="w-full h-screen relative">
+        <nav class="flex justify-between sticky z-100 items-center top-0 px-6 h-[60px] border-b-2 border-gray-200 bg-[#faf8ff]">
+            <img class="w-[80px] h-[40px]" src="{{ Vite::asset('resources/images/company_logo.png') }}" alt="Company Logo">
+            <div class="flex gap-5">
+                <x-nav-link href="" :active="request()->is('/')">Home</x-nav-link>
+                <x-nav-link href="" :active="request()->is('findjob')">Find Jobs</x-nav-link>
+                <x-nav-link href="" :active="request()->is('companies')">Companies</x-nav-link>
+            </div>
+            <div class="flex gap-5 items-center">
+                <i class="text-xl fa-regular fa-bell"></i>
+                <i class="text-xl fa-regular fa-circle-question"></i>
+                <i class="text-xl fa-solid fa-grip-lines-vertical"></i>
+                <a href="">
+                    <img class="w-[30px] h-[30px] rounded-md" src="{{$seeker->profile ? Storage::url($seeker->profile) : Vite::asset('resources/images/image.png') }}" alt="Seeker Profile">
+                </a>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-gray-500 rounded-lg hover:bg-red-50 hover:text-red-600 transition-all duration-200 cursor-pointer">
+                        <span>Logout</span>
+                        <i class="fi fi-rs-sign-out-alt"></i>
+                    </button>
+                </form>
+            </div>
+        </nav>
+        <section class="w-full h-full">
+            {{ $slot }}
+        </section>
+    </main>
+    @endcan
+
+
 </body>
 
 </html>

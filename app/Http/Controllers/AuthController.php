@@ -32,7 +32,7 @@ class AuthController extends Controller
             if (Auth::user()->role === 'employer') {
                 return redirect()->route('employer.dashboard');
             }
-            return redirect()->route('welcome');
+            return redirect()->route('seeker.home');
         }
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records'

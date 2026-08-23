@@ -22,7 +22,7 @@ class CareerPolicy
      */
     public function view(User $user, Career $career): bool
     {
-        return false;
+        return $career->company->user->is($user);
     }
 
     /**

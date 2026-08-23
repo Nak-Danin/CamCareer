@@ -29,6 +29,10 @@ class Career extends Model
     {
         return $this->hasMany(Application::class, 'career_id', 'career_id');
     }
+    public function categorys(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'category_id');
+    }
     public function scopeAvailableCareers(Builder $query): Builder
     {
         return $query->where('status', 'available');
@@ -44,7 +48,7 @@ class Career extends Model
     }
     protected static function boot()
     {
-        parent::boot(); 
+        parent::boot();
         static::creating(function ($career) {
             $slug = Str::slug($career->title);
             // Avoid duplication bug: If "software-engineer" exists, make it "software-engineer-1"

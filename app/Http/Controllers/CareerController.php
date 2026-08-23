@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Career;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CareerController extends Controller
 {
     public function index()
     {
-        $careers = Career::availableCareers()->latest()->get();
-        return view('careers.index', compact('careers'));
+        $featureCareers = Career::availableCareers()->latest()->take(4)->get();
+        return view('careers.seeker.homepage', compact('featureCareers'));
     }
     public function show(Career $career)
     {
@@ -19,7 +21,8 @@ class CareerController extends Controller
     }
     public function create()
     {
-        return view('careers.create');
+        $categories = Category::all();
+        return view('careers.create', compact("categories"));
     }
     public function store(Request $request)
     {
@@ -28,6 +31,8 @@ class CareerController extends Controller
             'title' => ['required', 'string', 'max:150'],
 
             'salary_range' => ['nullable', 'string', 'max:255'],
+
+            'category_id' => ['required', 'numeric'],
 
             'description' => ['required', 'string'],
 
@@ -47,14 +52,22 @@ class CareerController extends Controller
                 'in:full-time,part-time,internship,contract'
             ],
         ]);
+        $slug = Str::slug($request->title);
+        $originalSlug = $slug;
+        $count = 2;
+        while (Career::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count++;
+        }
+
         $company = Auth::user()->company;
         //create career
-        $company->careers()->create($validated);
-        return redirect()->route('careers')->with('success', 'Create new career successfully');
+        $company->careers()->create([...$validated, 'slug' => $slug]);
+        return redirect()->route('employer.jobs')->with('success', 'Create new career successfully');
     }
     public function edit(Career $career)
     {
-        return view('careers.edit', compact('career'));
+        $categories = Category::all();
+        return view('careers.edit', compact('career', 'categories'));
     }
     public function update(Request $request, Career $career)
     {
@@ -63,6 +76,8 @@ class CareerController extends Controller
             'title' => ['required', 'string', 'max:150'],
 
             'salary_range' => ['nullable', 'string', 'max:255'],
+
+            'category_id' => ['required', 'numeric'],
 
             'description' => ['required', 'string'],
 

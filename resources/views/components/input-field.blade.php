@@ -18,10 +18,10 @@
         id="{{ $name }}"
         value="{{ old($name, $value) }}"
         {{ $attributes->merge([
-            'class' => 'w-full px-3 py-2 border border-gray-100 bg-gray-100/60 rounded-md text-sm transition-colors focus:outline-none focus:ring-2 ' . 
+            'class' => 'w-full px-3 py-2 border border-gray-100 bg-gray-100/60 rounded-md text-sm transition-colors focus:outline-none ' . 
             ($errors->has($name) 
-                ? 'border-red-500 focus:border-red-500 focus:ring-red-200' 
-                : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-100')
+                ? 'border-red-500 focus:border-red-500' 
+                : 'border-slate-300 focus:border-indigo-500')
         ]) }} />
 
     @error($name)

@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\CareerSeeker;
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CareerSeekerSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        CareerSeeker::factory(20)->create();
+        Category::factory(5)->create();
     }
 }

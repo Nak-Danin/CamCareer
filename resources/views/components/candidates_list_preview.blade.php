@@ -46,7 +46,7 @@
                 <button type="submit" class="btn-danger text-sm uppercase py-1">Reject</button>
             </form>
             @if ($nextStatus === 'interview')
-            <form action="{{ route('employer.create_interview', ['application' => $application]) }}" method="POST" class="inline-block">
+            <form action="{{ route('employer.create_interview', ['application' => $application]) }}" method="GET" class="inline-block">
                 @csrf
                 <button
                     @disabled($application->career->status === "unavailable")
