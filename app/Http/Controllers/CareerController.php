@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Career;
 use App\Models\Category;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -12,8 +13,12 @@ class CareerController extends Controller
 {
     public function index()
     {
-        $featureCareers = Career::availableCareers()->latest()->take(4)->get();
-        return view('careers.seeker.homepage', compact('featureCareers'));
+        $seeker = Auth::user()->seeker;
+        $allJobs = Career::all();
+        $featuredCompanies = Company::all()->take(6);
+        $featuredJobs = Career::availableCareers()->latest()->take(4)->get();
+        $categories = Category::all()->take(4);
+        return view('careers.seeker.homepage', compact('featuredJobs', 'categories', 'seeker', 'allJobs', 'featuredCompanies'));
     }
     public function show(Career $career)
     {
