@@ -14,8 +14,8 @@ $isAlreadyApplied = $seeker->applications()->where('career_id', $job->career_id)
     <div class="md:hidden flex items-center gap-4">
         <img class="w-[60px] h-[60px] border-2 border-gray-200 object-cover rounded-lg" src="{{ $job->company->logo_url ? Storage::url($job->company->logo_url) : Vite::asset('resources/images/image.png') }}" alt="Company Logo">
         <div class="flex flex-col gap-2 md:hidden">
-            <span><i class="fi fi-rs-building"></i> {{ $job->company->company_name }}</span>
-            <span><i class="fi fi-rs-marker"></i> {{ $job->location }}</span>
+            <span class="text-[14px]"><i class="fi fi-rs-building text-blue-800"></i> {{ $job->company->company_name }}</span>
+            <span class="text-[14px]"><i class="fi fi-sr-map-pin text-red-700"></i> {{ $job->location }}</span>
         </div>
     </div>
     <div class="flex justify-between items-center gap-4">

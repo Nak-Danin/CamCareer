@@ -29,7 +29,7 @@ class Career extends Model
     {
         return $this->hasMany(Application::class, 'career_id', 'career_id');
     }
-    public function categorys(): BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id', 'category_id');
     }

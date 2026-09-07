@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\EmployerCareerController;
 use App\Http\Controllers\EmployerDashboardController;
+use App\Http\Controllers\FindJobController;
 use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\SettingController;
 use App\Models\Application;
@@ -48,7 +49,9 @@ Route::middleware(['auth', 'no.employers'])->group(function () {
     // Seeker Home
     Route::get('/', [CareerController::class, 'index'])->name('seeker.home');
     // Careers
-    Route::get('/careers', [CareerController::class, 'index'])->name('seeker.careers');
+    Route::get('/findjobs', [FindJobController::class, 'index'])->name('seeker.exploreByCategory');
+    //View job
+    Route::get('/jobs/{career}', [CareerController::class, 'show'])->name('seeker.viewJob');
     // Apply to job
     Route::patch('/applications/{career}', [ApplicationController::class, 'store'])->name('application.store');
 });

@@ -16,6 +16,12 @@ $company = Auth::user()->company;
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
+<style>
+    ::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+
 <body>
     @can('create', App\Models\Career::class)
     <main class="w-full h-screen">
@@ -48,15 +54,15 @@ $company = Auth::user()->company;
         <nav class="flex justify-between sticky z-100 items-center top-0 px-6 h-[60px] border-b-2 border-gray-200 bg-[#faf8ff]">
             <img class="w-[80px] h-[40px]" src="{{ Vite::asset('resources/images/company_logo.png') }}" alt="Company Logo">
             <div class="hidden md:flex gap-5">
-                <x-nav-link href="" :active="request()->is('/')">Home</x-nav-link>
-                <x-nav-link href="" :active="request()->is('findjob')">Find Jobs</x-nav-link>
+                <x-nav-link href="/" :active="request()->is('/')">Home</x-nav-link>
+                <x-nav-link href="/findjobs" :active="request()->is('findjobs')">Find Jobs</x-nav-link>
                 <x-nav-link href="" :active="request()->is('companies')">Companies</x-nav-link>
             </div>
             <div class="flex gap-5 items-center">
                 <i class="text-xl fa-regular fa-bell"></i>
                 <i class="text-xl fa-regular fa-circle-question"></i>
                 <i class="text-xl fa-solid fa-grip-lines-vertical"></i>
-                <a href="">
+                <a href="#">
                     <img class="w-[30px] h-[30px] rounded-md" src="{{$seeker->profile ? Storage::url($seeker->profile) : Vite::asset('resources/images/image.png') }}" alt="Seeker Profile">
                 </a>
                 <form class="hidden md:block" action="{{ route('logout') }}" method="POST">
@@ -73,11 +79,17 @@ $company = Auth::user()->company;
             {{ $slot }}
             <x-seeker_footer />
         </section>
-        <footer class="md:hidden fixed bottom-0 left-0 z-100 h-[60px] w-full bg-white">
-            <nav class="flex justify-evenly">
-                <x-nav-link href="" :active="request()->is('/')">Home</x-nav-link>
-                <x-nav-link href="" :active="request()->is('findjob')">Find Jobs</x-nav-link>
-                <x-nav-link href="" :active="request()->is('companies')">Companies</x-nav-link>
+        <footer class="md:hidden fixed bottom-0 z-100 h-[50px] w-full border-t-2 border-gray-400">
+            <nav class="grid grid-cols-3 bg-white h-full">
+                <div class="flex justify-center">
+                    <x-nav-link href="/" :active="request()->is('/')">Home</x-nav-link>
+                </div>
+                <div class="flex justify-center">
+                    <x-nav-link href="findjobs" :active="request()->is('findjobs')">Find Jobs</x-nav-link>
+                </div>
+                <div class="flex justify-center">
+                    <x-nav-link href="" :active="request()->is('companies')">Companies</x-nav-link>
+                </div>
             </nav>
         </footer>
     </main>

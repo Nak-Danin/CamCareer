@@ -15,14 +15,16 @@ class CareerController extends Controller
     {
         $seeker = Auth::user()->seeker;
         $allJobs = Career::all();
-        $featuredCompanies = Company::all()->take(6);
+        $featuredCompanies = Company::limit(6)->get();
         $featuredJobs = Career::availableCareers()->latest()->take(4)->get();
-        $categories = Category::all()->take(4);
+        $categories = Category::limit(8)->get();
         return view('careers.seeker.homepage', compact('featuredJobs', 'categories', 'seeker', 'allJobs', 'featuredCompanies'));
     }
     public function show(Career $career)
     {
-        return view('careers.show', compact('career'));
+        $seeker = Auth::user()->seeker;
+        $isAlreadyApplied = $seeker->applications()->where('career_id', $career->career_id)->exists();
+        return view('careers.show', compact('career', 'isAlreadyApplied'));
     }
     public function create()
     {
