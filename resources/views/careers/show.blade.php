@@ -6,7 +6,7 @@
                     <i class="fi fi-rr-arrow-small-left text-2xl"></i>
                     <span>Back to Search</span>
                 </a>
-                <section class="flex justify-between items-baseline bg-white px-10 py-5 border-2 border-gray-200 rounded-md">
+                <section class="flex justify-between items-baseline bg-white px-10 py-5 border-2 border-gray-300 rounded-md">
                     <x-job_heading :career="$career" />
                     <div class="flex gap-3">
                         @if (!$isAlreadyApplied)
@@ -19,7 +19,7 @@
                         @endif
                     </div>
                 </section>
-                <section class="w-full bg-white border-2 border-gray-200 pb-5 rounded-t-md">
+                <section class="w-full bg-white border-2 border-gray-300 pb-5 rounded-t-md">
                     <h1 class="w-full p-5 bg-[#f3f3fd] text-xl font-medium border-b-2 border-gray-200">Job Description</h1>
                     <div class="flex flex-col gap-5 p-10">
                         <section class="flex flex-col gap-2">
@@ -66,25 +66,44 @@
             </div>
         </section>
         <section class="flex flex-col gap-5 mt-13">
-            <ul class="p-5 flex flex-col gap-5 bg-white rounded border-2 border-gray-200 font-medium text-gray-600/90">
+            <ul class="p-5 flex flex-col gap-4 bg-white rounded border-2 border-gray-300 font-medium text-gray-600/90">
                 <li class="text-xl text-black">Quick facts</li>
-                <li class="flex justify-between">
+                <li class="py-2 flex justify-between border-b border-gray-200">
                     <span>Salary Range</span>
-                    <span>{{ $career->salary_range }}</span>
+                    <span class="text-black">{{ $career->salary_range }}</span>
                 </li>
-                <li class="flex justify-between">
+                <li class="py-2 flex justify-between border-b border-gray-200">
                     <span>Job Type</span>
-                    <span class="capitalize">{{ $career->career_type }}</span>
+                    <span class="capitalize text-black">{{ $career->career_type }}</span>
                 </li>
-                <li class="flex justify-between">
+                <li class="py-2 flex justify-between border-b border-gray-200">
                     <span>Category</span>
-                    <span>{{ $career->category->category_name }}</span>
+                    <span class="text-black">{{ $career->category->category_name }}</span>
                 </li>
-                <li class="flex justify-between">
+                <li class="py-2 flex justify-between border-b border-gray-200">
                     <span>Location</span>
-                    <span>{{ $career->location }}</span>
+                    <span class="text-black">{{ $career->location }}</span>
+                </li>
+                <li class="py-2 flex justify-between">
+                    <span>Company</span>
+                    <span class="text-black">{{ $career->company->company_name }}</span>
                 </li>
             </ul>
+            <div class="w-full relative rounded border-2 border-gray-300">
+                <img class="w-full h-[200px] object-cover border-b-2 border-gray-300" src="{{ Vite::asset('resources/images/company-bg.jpg') }}" alt="Company-bg">
+                @php
+                $company_logo = $career->company->company_logo;
+                @endphp
+                <img class="absolute top-1/2 -translate-y-1/2 left-10 w-[60px] h-[60px] bg-gray-300 border-2 border-gray-300 rounded" src="{{$company_logo? $company_logo : Vite::asset('resources/images/image.png') }}" />
+                <div class="flex flex-col gap-4 bg-white p-6">
+                    <h1 class="text-heading text-2xl mt-6">{{ $career->company->company_name }}</h1>
+                    <span>{{ $career->company->description }}</span>
+                    <a class="text-blue-800 font-medium" href="">View Company Profile <i class="fi fi-rr-share-square"></i></a>
+                </div>
+            </div>
+            <div class="p-4 bg-white border-2 border-gray-300 rounded group">
+                <x-similar_jobs :category="$career->category" />
+            </div>
         </section>
     </main>
 </x-master-layout>
