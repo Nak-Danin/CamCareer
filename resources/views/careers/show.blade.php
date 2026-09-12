@@ -1,14 +1,14 @@
 <x-master-layout heading="">
     <main class="grid grid-cols-1 md:grid-cols-[2fr_1fr] md:gap-5 py-5 md:p-10">
-        <section class="flex flex-col gap-5">
-            <div class="flex flex-col w-full">
+        <section class="flex flex-col">
+            <div class="flex flex-col gap-0 md:gap-5 w-full">
                 <a class="flex items-center gap-2 px-4 text-blue-800 font-medium text-lg" href="{{ url()->previous() }}">
                     <i class="hidden md:block fi fi-rr-arrow-small-left text-2xl"></i>
                     <i class=" md:hidden fi fi-rr-angle-left text-[12px] mt-1 font-extrabold"></i>
                     <span class="hidden md:block">Back to Search</span>
                     <span class="md:hidden">Back</span>
                 </a>
-                <section class="flex justify-between items-baseline md:bg-white p-5 md:p-10 md:border-2 md:border-gray-300 md:rounded-md">
+                <section class="flex justify-between items-baseline md:bg-white p-3 md:p-5 md:border-2 md:border-gray-300 md:rounded-md">
                     <x-job_heading :career="$career" />
                     <div class="flex gap-3">
                         @if (!$isAlreadyApplied)
@@ -21,8 +21,8 @@
                         @endif
                     </div>
                 </section>
-                <section class="w-full md:bg-white md:border-2 border-gray-300 md:pb-5 rounded-t-md">
-                    <h1 class="w-full p-5 bg-[#f3f3fd] text-xl font-medium border-y-2 md:border-b-2 md:border-t-0 border-gray-200">Job Description</h1>
+                <section class="w-full md:bg-white md:border-2 border-gray-300 md:pb-5 rounded-md">
+                    <h1 class="w-full p-5 bg-[#f3f3fd] text-xl font-medium border-y-2 md:border-b-2 md:border-t-0 border-gray-300 md:rounded-t-md">Job Description</h1>
                     <div class="flex flex-col gap-5 p-5 md:p-10">
                         <section class="flex flex-col gap-2">
                             <h1 class="text-blue-700 text-lg uppercase font-semibold">About this Role</h1>
@@ -56,7 +56,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 px-5">
                         <x-job_description_card
                             title="Compensation"
-                            :value="'$ ' . $career->salary_range . ' (USD)'" />
+                            :value=" $career->salary_range . ' (USD)'" />
                         <x-job_description_card
                             title="Employment Type"
                             :value="$career->career_type" />

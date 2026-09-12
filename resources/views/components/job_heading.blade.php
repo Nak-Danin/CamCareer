@@ -5,9 +5,9 @@
 $seeker = Illuminate\Support\Facades\Auth::user()->seeker;
 $isAlreadyApplied = $seeker->applications()->where('career_id', $career->career_id)->exists();
 @endphp
-<main class="flex flex-col gap-2 bg-white md:bg-transparent p-5 md:p-0 border-2 md:border-0 border-gray-300 rounded-md">
-    <div class="flex items-center gap-4">
-        <div class="flex flex-col md:flex-row gap-4 items-baseline md:items-center">
+<main class="flex w-full md:w-fit flex-col gap-2 md:gap-4 bg-white md:bg-transparent p-5 md:p-0 border-2 md:border-0 border-gray-300 rounded-md">
+    <div class="flex w-full items-center gap-4">
+        <div class="flex w-full flex-col md:flex-row gap-4 items-baseline md:items-center">
             <div class="md:hidden flex justify-between items-center w-full">
                 <i class="{{ $career->category->icon }} text-4xl md:text-2xl w-fit md:w-full text-blue-800 bg-blue-200 px-2 py-1 md:py-0 pt-1 rounded-md"></i>
                 @if (!$isAlreadyApplied)
@@ -35,7 +35,7 @@ $isAlreadyApplied = $seeker->applications()->where('career_id', $career->career_
     </div>
     @endcan
     <div class="flex gap-4 items-center text-gray-700">
-        <span><i class="fi fi-rs-marker"></i> {{ $career->location }}</span>
+        <span><i class="fi fi-rs-marker text-red-700"></i> {{ $career->location }}</span>
         <i class="fi fi-ss-circle text-[8px] mt-1 text-green-500"></i>
         <span>Posted {{$career->created_at->diffForHumans()}}</span>
     </div>

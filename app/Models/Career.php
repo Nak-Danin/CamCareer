@@ -46,6 +46,40 @@ class Career extends Model
     {
         return 'slug';
     }
+    public function scopeKeyword(Builder $query, ?string $keyword): Builder
+    {
+        return $query->when(
+            $keyword,
+            fn($q) =>
+            $q->where(function ($q2) use ($keyword) {
+                $q2->where('title', 'like', "%{$keyword}%")
+                    ->orWhere('description', 'like', "%{$keyword}%");
+            })
+        );
+    }
+
+    public function scopeLocation(Builder $query, ?string $location): Builder
+    {
+        return $query->when($location, fn($q) => $q->where('location', 'like', "%{$location}%"));
+    }
+
+    public function scopeCategoryId(Builder $query, ?int $categoryId): Builder
+    {
+        return $query->when($categoryId, fn($q) => $q->where('category_id', $categoryId));
+    }
+
+    // filters on the actual `career_type` column; kept the scope name
+    // as "employmentType" since that's what the form field/UI calls it
+    public function scopeEmploymentType(Builder $query, ?array $types): Builder
+    {
+        return $query->when(!empty($types), fn($q) => $q->whereIn('career_type', $types));
+    }
+
+    public function scopeSortBy(Builder $query, ?string $sort): Builder
+    {
+        return $query->orderByDesc('created_at');
+    }
+
     protected static function boot()
     {
         parent::boot();

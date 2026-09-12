@@ -5,11 +5,11 @@
             <aside class="min-w-0 flex flex-col gap-10 justify-center">
                 <h1 class="text-heading text-5xl text-white">Empowering Careers in Cambodia.</h1>
                 <span class="text-lg text-gray-300 w-full md:w-[90%]">Access the Kingdom's most prestigious job opportunities and talent pool with Camcareer</span>
-                <form class="bg-white p-4 rounded-md grid grid-cols-[3fr_1fr] gap-4" action="#" method="GET">
+                <form class="bg-white p-4 rounded-md grid grid-cols-[3fr_1fr] gap-4" action="{{ route('seeker.filterJobs') }}" method="GET">
                     <div class="grid grid-cols-2 gap-2">
                         <div class="flex gap-1 items-center border-r border-gray-400">
                             <i class="fi fi-rr-briefcase text-xl"></i>
-                            <input name="job_title" class="w-full text-lg border-0 outline-0 focus:ring-0 p-2" type="text" placeholder="Job title">
+                            <input name="keyword" class="w-full text-lg border-0 outline-0 focus:ring-0 p-2" type="text" placeholder="Job title">
                         </div>
                         <div class="flex gap-1 items-center">
                             <i class="fi fi-rs-marker text-xl"></i>
@@ -41,11 +41,11 @@
     <section class="p-5 md:px-20 pt-15 flex flex-col gap-2 bg-[#F4F5F7]">
         <div class="flex justify-between">
             <h1 class="text-heading text-2xl md:text-4xl">Browse by Category</h1>
-            <a class="flex md:hidden gap-3 items-center text-blue-800 font-medium" href="">View All</a>
+            <a href="{{ route('seeker.exploreByCategory') }}" class="flex md:hidden gap-3 items-center text-blue-800 font-medium">View All</a>
         </div>
         <div class="hidden md:flex justify-between items-center text-description">
             <span>Explore thousands of jobs across industry sectors</span>
-            <a class="flex gap-3 items-center text-blue-800 font-medium" href="">View All <i class="fi fi-rr-arrow-right mt-1"></i></a>
+            <a href="{{ route('seeker.exploreByCategory') }}" class="flex gap-3 items-center text-blue-800 font-medium">View All <i class="fi fi-rr-arrow-right mt-1"></i></a>
         </div>
         <div class="outer-container w-full overflow-x-scroll md:overflow-hidden">
             <div class="w-[900px] md:w-full flex md:grid grid-cols-4 gap-4 mt-4">
@@ -66,7 +66,7 @@
             @endforeach
         </ul>
         <div class="flex justify-center">
-            <button class="py-1 px-6 md:py-3 md:px-10 border-2 border-blue-800 text-blue-800 font-medium rounded hover:bg-blue-800 hover:text-white transition-colors cursor-pointer">Explore All {{ $allJobs->count() }} Jobs</button>
+            <a href="{{ route('seeker.filterJobs') }}" class="py-1 px-6 md:py-3 md:px-10 border-2 border-blue-800 text-blue-800 font-medium rounded hover:bg-blue-800 hover:text-white transition-colors cursor-pointer">Explore All {{ $allJobs->count() }} Jobs</a>
         </div>
     </section>
     <section class="p-5 md:px-20 md:py-20 flex flex-col gap-6 bg-[#F4F5F7]">
