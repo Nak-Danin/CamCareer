@@ -24,7 +24,7 @@
             <div
                 x-show="@js(strtolower($category->category_name)).includes(search.toLowerCase())"
                 class="flex justify-center">
-                <x-category href="/findjobs/filter?keyword=&category={{ $category->category_id }}" class="w-[150px] text-[12px]" :badge="$category->icon" :categoryName="$category->category_name" :jobs_count="$jobCount" />
+                <x-category href="/findjobs/filter?category={{ $category->category_id }}" class="w-[150px] text-[12px]" :badge="$category->icon" :categoryName="$category->category_name" :jobs_count="$jobCount" />
             </div>
             @endforeach
         </section>

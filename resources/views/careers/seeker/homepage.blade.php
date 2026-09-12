@@ -38,8 +38,8 @@
             <button class="bg-blue-800 text-white rounded-md text-lg flex gap-3 items-center justify-center cursor-pointer py-2" type="submit">Search Jobs <i class="fi fi-rr-search text-sm"></i></button>
         </form>
     </section>
-    <section class="p-5 md:px-20 pt-15 flex flex-col gap-2 bg-[#F4F5F7]">
-        <div class="flex justify-between">
+    <section class="md:px-20 pt-15 flex flex-col gap-2 bg-[#F4F5F7]">
+        <div class="px-5 flex justify-between">
             <h1 class="text-heading text-2xl md:text-4xl">Browse by Category</h1>
             <a href="{{ route('seeker.exploreByCategory') }}" class="flex md:hidden gap-3 items-center text-blue-800 font-medium">View All</a>
         </div>
@@ -48,9 +48,12 @@
             <a href="{{ route('seeker.exploreByCategory') }}" class="flex gap-3 items-center text-blue-800 font-medium">View All <i class="fi fi-rr-arrow-right mt-1"></i></a>
         </div>
         <div class="outer-container w-full overflow-x-scroll md:overflow-hidden">
-            <div class="w-[900px] md:w-full flex md:grid grid-cols-4 gap-4 mt-4">
+            @php
+            $width = $categories->count() * 160;
+            @endphp
+            <div style="width: {{ $width }}px;" class=" px-5 md:w-full flex md:grid grid-cols-4 gap-4 mt-4">
                 @foreach ($categories as $category)
-                <x-category :badge="$category->icon" :categoryName="$category->category_name" :jobs_count="$category->careers->count()" />
+                <x-category href="/findjobs/filter?category={{ $category->category_id }}" :badge="$category->icon" :categoryName="$category->category_name" :jobs_count="$category->careers->count()" />
                 @endforeach
             </div>
         </div>
@@ -69,13 +72,16 @@
             <a href="{{ route('seeker.filterJobs') }}" class="py-1 px-6 md:py-3 md:px-10 border-2 border-blue-800 text-blue-800 font-medium rounded hover:bg-blue-800 hover:text-white transition-colors cursor-pointer">Explore All {{ $allJobs->count() }} Jobs</a>
         </div>
     </section>
-    <section class="p-5 md:px-20 md:py-20 flex flex-col gap-6 bg-[#F4F5F7]">
-        <div class="flex flex-col gap-2 justify-center items-baseline md:items-center">
+    <section class="py-5 md:px-20 md:py-20 flex flex-col gap-6 bg-[#F4F5F7]">
+        <div class="px-5 flex flex-col gap-2 justify-center items-baseline md:items-center">
             <h1 class="text-heading text-2xl md:text-4xl">Top Company</h1>
             <span class="text-[18px] text-gray-600">Work with the best company in Cambodia </span>
         </div>
-        <div class="outer-container w-full overflow-x-scroll md:overflow-hidden">
-            <div class="flex w-[1200px] md:w-full md:grid grid-cols-5 gap-4">
+        <div class="ps-5 outer-container w-full overflow-x-scroll md:overflow-hidden">
+            @php
+            $fcWidth = $featuredCompanies->count() * 270;
+            @endphp
+            <div style="width: {{ $fcWidth }}px;" class="flex md:w-full md:grid grid-cols-5 gap-4">
                 @foreach ($featuredCompanies as $featuredCompany)
                 <x-featured_company_list :company="$featuredCompany" />
                 @endforeach
