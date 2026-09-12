@@ -19,5 +19,5 @@
             </div>
         </div>
     @endforeach
-    <button class="text-blue-800 font-medium w-full text-center py-2 border-2 border-gray-300 rounded hover:bg-blue-800 hover:text-white transition-all cursor-pointer">Explore More Jobs</button>
+    <button class="text-white bg-blue-800 md:bg-white md:text-blue-800 font-medium w-full text-center py-2 border-2 border-gray-300 rounded hover:bg-blue-800 hover:text-white transition-all cursor-pointer">Explore More Jobs</button>
 </main>
