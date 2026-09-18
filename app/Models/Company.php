@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Builder;
 
 class Company extends Model
 {
@@ -25,5 +26,9 @@ class Company extends Model
     public function applications(): HasManyThrough
     {
         return $this->HasManyThrough(Application::class, Career::class, 'company_id', 'career_id', 'company_id', 'career_id');
+    }
+    public function scopeTopCompanies(Builder $query): Builder
+    {
+        return $query->withCount('careers')->orderByDesc('careers_count')->limit(3);
     }
 }
