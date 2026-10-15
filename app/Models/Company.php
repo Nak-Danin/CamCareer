@@ -31,4 +31,16 @@ class Company extends Model
     {
         return $query->withCount('careers')->orderByDesc('careers_count')->limit(3);
     }
+    public function scopeLocation(Builder $query, ?string $location): Builder
+    {
+        return $query->when($location, fn($q) => $q->where('location', 'like', "%{$location}%"));
+    }
+    public function scopeCompanyName(Builder $query, ?string $company): Builder
+    {
+        return $query->when($company, fn($q) => $q->where('company_name', 'like', "%{$company}%"));
+    }
+    public function scopeIndustry(Builder $query, ?string $industry): Builder
+    {
+        return $query->when($industry, fn($q) => $q->where('industry', 'like', "%{industry}%"));
+    }
 }

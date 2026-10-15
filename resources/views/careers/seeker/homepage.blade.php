@@ -39,7 +39,7 @@
         </form>
     </section>
     <section class="md:px-20 pt-15 flex flex-col gap-2 bg-[#F4F5F7]">
-        <div class="px-5 flex justify-between">
+        <div class="px-5 md:px-0 flex justify-between">
             <h1 class="text-heading text-2xl md:text-4xl">Browse by Category</h1>
             <a href="{{ route('seeker.exploreByCategory') }}" class="flex md:hidden gap-3 items-center text-blue-800 font-medium">View All</a>
         </div>
@@ -51,7 +51,7 @@
             @php
             $width = $categories->count() * 160;
             @endphp
-            <div style="width: {{ $width }}px;" class=" px-5 md:w-full flex md:grid grid-cols-4 gap-4 mt-4">
+            <div style="width: {{ $width }}px;" class="px-5 md:px-0 md:w-full flex md:grid grid-cols-4 gap-4 mt-4">
                 @foreach ($categories as $category)
                 <x-category href="/findjobs/filter?category={{ $category->category_id }}" :badge="$category->icon" :categoryName="$category->category_name" :jobs_count="$category->careers->count()" />
                 @endforeach

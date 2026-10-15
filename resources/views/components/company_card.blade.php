@@ -24,7 +24,7 @@ $logo = $company->logo_url;
         </div>
         <div class="z-12 absolute bottom-3 left-3">
             <div class="flex gap-2 items-center">
-                <img class="w-[60px] h-[60px] rounded-xl" src="{{ $logo ?? Vite::asset('resources/images/image.png') }}" alt="">
+                <img class="w-[60px] h-[60px] rounded-xl border-4 border-gray-300" src="{{ $logo ?? Vite::asset('resources/images/image.png') }}" alt="Company_logo">
                 <div class="flex flex-col">
                     <h1 class="font-semibold text-2xl text-white text-shadow-md text-shadow-gray-500">{{ $company_name }}</h1>
                     <a class="font-medium text-sm text-gray-200" target="_blank" href="{{ $company_website }}">View Company Website <i class="fi fi-rr-share-square"></i></a>
@@ -41,7 +41,7 @@ $logo = $company->logo_url;
             <span class="px-2 py-1 bg-[#e9e9f7] text-lg text-gray-600 font-medium rounded">{{ $location }}</span>
         </div>
         <div class="grid grid-cols-[4fr_1fr] gap-3 w-full">
-            <a class="bg-blue-800 text-xl font-semibold text-center py-2 rounded-md text-white" href="">Browse {{ $company_careers_count }} Jobs</a>
+            <a class="bg-blue-800 text-lg font-semibold text-center py-2 rounded-md text-white" href="">Browse {{ $company_careers_count }} Jobs</a>
             <a class="py-2 flex items-center justify-center bg-gray-300 rounded-md" href=""><i class="fi fi-br-up-right-from-square text-xl"></i></a>
         </div>
     </section>

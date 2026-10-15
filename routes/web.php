@@ -10,7 +10,6 @@ use App\Http\Controllers\FindJobController;
 use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\SeekerCompanyController;
 use App\Http\Controllers\SettingController;
-use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -57,7 +56,7 @@ Route::middleware(['auth', 'no.employers'])->group(function () {
     //Filter job
     Route::get('/findjobs/filter', [FindJobController::class, 'filterJobs'])->name('seeker.filterJobs');
     //Company Page
-    Route::get('/companies',[SeekerCompanyController::class, 'index'])->name('seeker.companies');
+    Route::get('/companies', [SeekerCompanyController::class, 'filterCompanies'])->name('seeker.companies');
     // Apply to job
     Route::patch('/applications/{career}', [ApplicationController::class, 'store'])->name('application.store');
 });
