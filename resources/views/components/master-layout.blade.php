@@ -88,7 +88,7 @@ $company = Auth::user()->company;
                     <x-nav-link href="findjobs" :active="request()->is('findjobs')">Find Jobs</x-nav-link>
                 </div>
                 <div class="flex justify-center">
-                    <x-nav-link href="" :active="request()->is('companies')">Companies</x-nav-link>
+                    <x-nav-link href="/companies" :active="request()->is('companies')">Companies</x-nav-link>
                 </div>
             </nav>
         </footer>

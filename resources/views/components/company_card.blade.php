@@ -12,7 +12,7 @@ $location = $company->location;
 $cover_pic = $company->cover_pic;
 $logo = $company->logo_url;
 @endphp
-<main class="w-full h-[500px] flex flex-col rounded-xl shadow shadow-gray-500">
+<main class="w-full h-[400px] md:h-[500px] flex flex-col rounded-xl shadow shadow-gray-500">
     <section class="relative w-full h-1/2">
         <div class="z-11 absolute bg-black w-full h-full opacity-30 rounded-t-xl"></div>
         <img class="z-10 absolute w-full h-full rounded-t-xl" src="{{ $cover_pic ?? Vite::asset('resources/images/company-cover.jpg') }}" alt="">
@@ -32,13 +32,13 @@ $logo = $company->logo_url;
             </div>
         </div>
     </section>
-    <section class="h-1/2 w-full p-5 flex flex-col gap-5">
+    <section class="h-1/2 w-full p-3 md:p-5 flex flex-col gap-5">
         <p class="text-gray-600 text-lg line-clamp-2">
             {{ $company_description }}
         </p>
         <div class="flex gap-3 items-center">
-            <span class="px-2 py-1 bg-[#e9e9f7] text-lg text-gray-600 font-medium rounded">{{ $industry }}</span>
-            <span class="px-2 py-1 bg-[#e9e9f7] text-lg text-gray-600 font-medium rounded">{{ $location }}</span>
+            <span class="px-2 py-1 bg-[#e9e9f7] text-mde md:text-lg text-gray-600 font-medium rounded">{{ $industry }}</span>
+            <span class="px-2 py-1 bg-[#e9e9f7] text-mde md:text-lg text-gray-600 font-medium rounded">{{ $location }}</span>
         </div>
         <div class="grid grid-cols-[4fr_1fr] gap-3 w-full">
             <a class="bg-blue-800 text-lg font-semibold text-center py-2 rounded-md text-white" href="">Browse {{ $company_careers_count }} Jobs</a>

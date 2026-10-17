@@ -1,10 +1,10 @@
 <x-master-layout>
-    <main class="flex flex-col gap-5">
-        <section class="w-full h-[500px] flex flex-col justify-center items-center gap-10 bg-[#1C398E]">
-            <h1 class="w-[60%] text-heading font-semibold text-6xl text-white text-center leading-16">Discover Great Place to Work in Cambodia</h1>
-            <span class="w-1/2 text-center text-gray-200 text-2xl">Explore leading employers, company culture, employee reviews, and open vacancies across Phnom Penh, Siem Reap, and beyond.</span>
+    <main class="flex flex-col gap-5 px-4 md:px-0">
+        <section class="w-full h-[500px] hidden md:flex flex-col justify-center items-center gap-10 bg-[#1C398E]">
+            <h1 class="w-full md:w-[60%] text-heading font-semibold text-3xl md:text-6xl text-white text-center leading-8 md:leading-16">Discover Great Place to Work in Cambodia</h1>
+            <span class="w-full md:w-1/2 text-center text-gray-200 text-2xl">Explore leading employers, company culture, employee reviews, and open vacancies across Phnom Penh, Siem Reap, and beyond.</span>
         </section>
-        <section class="md:px-20 pt-15 flex flex-col gap-5 bg-[#F4F5F7]">
+        <section class="md:px-20 pt-5 md:pt-15 flex flex-col gap-5 bg-[#F4F5F7]">
             <h1 class="text-heading text-2xl md:text-4xl">Featured Top Employers in Cambodia</h1>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-evenly w-full">
                 @foreach ($topCompanies as $topCompany)
@@ -12,15 +12,12 @@
                 @endforeach
             </div>
         </section>
-        <section id="featured-companies" class="w-full mx-auto px-5 md:px-20 py-8 scroll-mt-24">
+        <section id="featured-companies" class="w-full mx-auto px-0 md:px-20 py-4 md:py-8 scroll-mt-24">
             <div class="grid grid-cols-1 md:grid-cols-[380px_1fr] gap-4 md:gap-8">
                 {{-- ===================== FILTER SIDEBAR ===================== --}}
                 <div class="flex flex-col gap-2">
-                    <div class="md:hidden flex justify-between">
-                        <a href="{{ route('seeker.exploreByCategory') }}" class="flex gap-1 items-center font-medium text-blue-800"><i class="fi fi-br-angle-left text-xs"></i><span class="mb-1">Back</span></a>
-                        <div class="flex items-center justify-end">
-                            <i id="toggleBtn" class="px-2 py-1 text-blue-800 bg-indigo-100 rounded-md fi fi-rr-filter-list"></i>
-                        </div>
+                    <div class="md:hidden flex items-center justify-end">
+                        <i id="toggleBtn" class="px-2 py-1 text-blue-800 bg-indigo-100 rounded-md fi fi-rr-filter-list"></i>
                     </div>
                     <aside id="filterTab" class="hidden md:block bg-white border border-gray-200 rounded-xl p-5 h-fit">
                         <div class="flex items-center justify-between mb-6">
@@ -94,4 +91,11 @@
             </div>
         </section>
     </main>
+    <script>
+        const toggleBtn = document.getElementById('toggleBtn');
+        const filterTab = document.getElementById('filterTab');
+        toggleBtn.addEventListener('click', () => {
+            filterTab.classList.toggle('hidden');
+        });
+    </script>
 </x-master-layout>

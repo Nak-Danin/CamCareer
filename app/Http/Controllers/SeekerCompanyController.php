@@ -24,6 +24,6 @@ class SeekerCompanyController extends Controller
             ->industry($filters['industry'] ?? null)
             ->paginate(4)
             ->appends($request->query());
-        return view('careers.seeker.companies', compact('topCompanies', 'featuredCompanies'));
+        return view('careers.seeker.companies', compact('topCompanies', 'featuredCompanies', 'filters'));
     }
 }

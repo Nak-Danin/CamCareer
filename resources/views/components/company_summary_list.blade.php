@@ -10,24 +10,32 @@ $location = $company->location;
 $description = $company->description;
 $companyId = $company->company_id;
 @endphp
-<main class="w-full flex gap-3 p-3 bg-white rounded-md">
-    <img class="w-[60px] h-[60px] rounded-xl border-4 border-gray-300" src="{{ $companyLogo?? Vite::asset('resources/images/image.png') }}" alt="Company_logo">
+<main class="w-full flex flex-col md:flex-row gap-3 p-3 bg-white rounded-md">
+    <div class="flex gap-3">
+        <img class="w-[60px] h-[60px] rounded-xl border-4 border-gray-300" src="{{ $companyLogo?? Vite::asset('resources/images/image.png') }}" alt="Company_logo">
+        <section class="w-full flex flex-col md:hidden gap-1">
+            <h1 class="text-heading text-xl">{{ $companyName }}</h1>
+            <div class="flex flex-col md:flex-row gap-1 md:gap-3 font-semibold font-sans">
+                <span class="text-blue-800">{{ $industry }}</span>
+            </div>
+        </section>
+    </div>
     <aside class="w-full flex flex-col gap-1">
         <div class="grid grid-cols-[5fr_1fr]">
             <section class="w-full flex flex-col gap-1">
-                <h1 class="text-heading text-xl">{{ $companyName }}</h1>
-                <div class="flex gap-3 font-semibold font-sans">
-                    <span class="text-blue-800">{{ $industry }}</span>
+                <h1 class="hidden md:block text-heading text-xl">{{ $companyName }}</h1>
+                <div class="flex flex-col md:flex-row gap-1 md:gap-3 font-semibold font-sans">
+                    <span class="hidden md:blocktext-blue-800">{{ $industry }}</span>
                     <span class="text-gray-600"><i class="fi fi-rs-marker text-xs"></i> {{ $location }}</span>
                 </div>
             </section>
-            <section class="flex items-start justify-end">
+            <section class="hidden md:flex items-start justify-end">
                 <span class="h-fit bg-blue-100 text-blue-800 font-semibold px-2 py-1">{{ $jobCount }} Open Jobs</span>
             </section>
         </div>
-        <div class="grid grid-cols-[5fr_1fr]">
+        <div class="flex flex-col gap-2 md:gap-0 md:grid grid-cols-[5fr_1fr]">
             <span class="text-description text-sm font-serif">{{ $description }}</span>
-            <a class="flex justify-end" href=""><button class="px-3 py-1 bg-blue-700 text-white rounded-md">View Profile</button></a>
+            <a class="w-full flex justify-end" href=""><button class="w-full md:w-fit px-3 py-2 text-lg md:text-sm md:py-1 bg-blue-800 text-white rounded-md">View Profile</button></a>
         </div>
     </aside>
 </main>
