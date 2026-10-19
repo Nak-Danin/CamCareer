@@ -29,6 +29,9 @@ class SeekerCompanyController extends Controller
 
     public function show(Company $company)
     {
-        return view('careers.seeker.company_profile', compact('company'));
+        $totalJobsPost = $company->careers()->count();
+        $availableJobs = $company->careers()->availableCareers()->get();
+        $availableJobsCount = $company->careers()->availableCareers()->count();
+        return view('careers.seeker.company_profile', compact('company', 'totalJobsPost', 'availableJobs', 'availableJobsCount'));
     }
 }

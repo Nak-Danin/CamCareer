@@ -54,7 +54,7 @@ Route::middleware(['auth', 'no.employers'])->group(function () {
     Route::get('/jobs/{career}', [CareerController::class, 'show'])->name('seeker.viewJob');
     //Filter job
     Route::get('/findjobs/filter', [FindJobController::class, 'filterJobs'])->name('seeker.filterJobs');
-    //Company Page
+    //Companies Page
     Route::get('/companies', [SeekerCompanyController::class, 'filterCompanies'])->name('seeker.companies');
     //Company Profile
     Route::get('/companies/{company}', [SeekerCompanyController::class, 'show'])->name('seeker.company.show');

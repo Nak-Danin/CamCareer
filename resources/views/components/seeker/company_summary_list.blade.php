@@ -5,7 +5,7 @@
 $companyLogo = $company->logo_url;
 $companyName = $company->company_name;
 $industry = $company->industry;
-$jobCount = $company->careers->count();
+$jobCount = $company->careers()->availableCareers()->count();
 $location = $company->location;
 $description = $company->description;
 $companyId = $company->company_id;
@@ -35,7 +35,7 @@ $companyId = $company->company_id;
         </div>
         <div class="flex flex-col gap-2 md:gap-0 md:grid grid-cols-[5fr_1fr]">
             <span class="text-description text-sm font-serif line-clamp-3">{{ $description }}</span>
-            <a class="w-full flex justify-end" href="{{ route('seeker.company.show', ['company' => $company]) }}"><button class="w-full md:w-fit px-3 py-2 text-lg md:text-sm md:py-1 bg-blue-800 text-white rounded-md">View Profile</button></a>
+            <a class="w-full flex justify-end" href="{{ route('seeker.company.show', ['company' => $company]) }}"><button class="cursor-pointer w-full md:w-fit px-3 py-2 text-lg md:text-sm md:py-1 bg-blue-800 text-white rounded-md">View Profile</button></a>
         </div>
     </aside>
 </main>
