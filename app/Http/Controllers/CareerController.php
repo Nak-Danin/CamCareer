@@ -15,7 +15,7 @@ class CareerController extends Controller
     {
         $seeker = Auth::user()->seeker;
         $allJobs = Career::all();
-        $featuredCompanies = Company::limit(6)->get();
+        $featuredCompanies = Company::topCompanies()->get();
         $featuredJobs = Career::availableCareers()->latest()->take(4)->get();
         $categories = Category::limit(8)->get();
         return view('careers.seeker.homepage', compact('featuredJobs', 'categories', 'seeker', 'allJobs', 'featuredCompanies'));

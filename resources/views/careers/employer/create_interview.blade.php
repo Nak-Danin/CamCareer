@@ -2,7 +2,7 @@
 $candidate_name = $application->seeker->first_name . ' ' . $application->seeker->last_name;
 $jobTitle = $application->career->title;
 @endphp
-<x-employer-layout heading=''>
+<x-layouts.employer-layout heading=''>
     <div class="bg-gray-50 flex items-center justify-center p-6">
         <div class="w-full max-w-៦xl bg-white rounded-xl shadow-md border border-gray-100 p-8">
 
@@ -114,4 +114,4 @@ $jobTitle = $application->career->title;
             </form>
         </div>
     </div>
-</x-employer-layout>
+</x-layouts.employer-layout>

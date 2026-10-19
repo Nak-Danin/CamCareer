@@ -32,7 +32,7 @@ $weekStart->addWeek();
 
 @endphp
 
-<x-employer-layout heading='Employer Dashboard'>
+<x-layouts.employer-layout heading='Employer Dashboard'>
     <main class="flex flex-col gap-4 h-full">
         <div class="flex justify-between items-center">
             <span class="text-description">
@@ -67,28 +67,28 @@ $weekStart->addWeek();
             </div>
         </div>
         <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <x-metric-card
+            <x-employer.metric-card
                 title="ACTIVE JOBS"
                 :value="$activeJobsCount"
                 :badge-text="'+' . $newJobsThisWeekCount . ' this week'"
                 icon="fi fi-rr-briefcase" />
-            <x-metric-card
+            <x-employer.metric-card
                 title="TOTAl APPLICATIONS"
                 :value="$totalApplicationsCount"
                 :badge-text="'+' . $recentApplied . ' this month'"
                 icon="fi fi-rr-document" />
-            <x-metric-card
+            <x-employer.metric-card
                 title="TOTAL CANDIDATES"
                 :value="$totalCandidatesCount"
                 :badge-text="'+' . $candidateAppliedToday . ' today'"
                 icon="fi fi-rs-user-add" />
-            <x-metric-card
+            <x-employer.metric-card
                 title="INTERVIEWS SCHEDULED"
                 :value="$interviewCandidates"
                 icon="fi fi-rr-calendar" />
         </div>
         <div class="w-full grid grid-cols-[5fr_3fr] gap-5">
-            <x-application_chart :labels='$chartLabels' :values="$chartValues" />
+            <x-employer.application_chart :labels='$chartLabels' :values="$chartValues" />
             <div class="bg-white p-6 flex flex-col gap-5 rounded-xl shadow-sm border border-gray-100 {{ $upcomingInterviews->count() > 0 ? 'h-full':'h-fit' }}">
                 <section class="flex justify-between">
                     <span class="text-heading text-lg">Upcoming Interviews</span>
@@ -124,7 +124,7 @@ $weekStart->addWeek();
             </div>
         </div>
         <div class="pb-5">
-            <x-applications_table :applications="$tableApplications" />
+            <x-employer.applications_table :applications="$tableApplications" />
         </div>
     </main>
-</x-employer-layout>
+</x-layouts.employer-layout>

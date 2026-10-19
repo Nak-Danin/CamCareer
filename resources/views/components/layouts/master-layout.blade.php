@@ -50,13 +50,13 @@ $company = Auth::user()->company;
     </main>
     @endcan
     @can('viewAny', App\Models\Career::class)
-    <main class="w-full h-full relative">
+    <main class="w-screen h-full relative">
         <nav class="flex justify-between sticky z-100 items-center top-0 px-6 h-[60px] border-b-2 border-gray-200 bg-[#faf8ff]">
             <img class="w-[80px] h-[40px]" src="{{ Vite::asset('resources/images/company_logo.png') }}" alt="Company Logo">
             <div class="hidden md:flex gap-5">
-                <x-nav-link href="/" :active="request()->is('/')">Home</x-nav-link>
-                <x-nav-link href="/findjobs" :active="request()->is('findjobs')">Find Jobs</x-nav-link>
-                <x-nav-link href="/companies" :active="request()->is('companies')">Companies</x-nav-link>
+                <x-seeker.nav-link href="/" :active="request()->is('/')">Home</x-seeker.nav-link>
+                <x-seeker.nav-link href="/findjobs" :active="request()->is('findjobs')">Find Jobs</x-seeker.nav-link>
+                <x-seeker.nav-link href="/companies" :active="request()->is('companies')">Companies</x-seeker.nav-link>
             </div>
             <div class="flex gap-5 items-center">
                 <i class="text-xl fa-regular fa-bell"></i>
@@ -77,18 +77,18 @@ $company = Auth::user()->company;
         </nav>
         <section class="w-full h-full bg-[#F4F5F7]">
             {{ $slot }}
-            <x-seeker_footer />
+            <x-seeker.seeker_footer />
         </section>
         <footer class="md:hidden fixed bottom-0 z-100 h-[50px] w-full border-t-2 border-gray-400">
             <nav class="grid grid-cols-3 bg-white h-full">
                 <div class="flex justify-center">
-                    <x-nav-link href="/" :active="request()->is('/')">Home</x-nav-link>
+                    <x-seeker.nav-link href="/" :active="request()->is('/')">Home</x-seeker.nav-link>
                 </div>
                 <div class="flex justify-center">
-                    <x-nav-link href="findjobs" :active="request()->is('findjobs')">Find Jobs</x-nav-link>
+                    <x-seeker.nav-link href="findjobs" :active="request()->is('findjobs')">Find Jobs</x-seeker.nav-link>
                 </div>
                 <div class="flex justify-center">
-                    <x-nav-link href="/companies" :active="request()->is('companies')">Companies</x-nav-link>
+                    <x-seeker.nav-link href="/companies" :active="request()->is('companies')">Companies</x-seeker.nav-link>
                 </div>
             </nav>
         </footer>

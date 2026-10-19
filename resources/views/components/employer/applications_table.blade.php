@@ -36,7 +36,7 @@
                 @endphp
                 <tr class="border-t border-gray-300 bg-white">
                     <td class="py-3 px-4 flex gap-4 items-center">
-                        <x-name_abbreviation :name="$name_abbreviation" :application_status="$application->status" />
+                        <x-employer.name_abbreviation :name="$name_abbreviation" :application_status="$application->status" />
                         <div class="flex flex-col">
                             <span class="font-medium">
                                 {{ $candidate_name }}
@@ -49,7 +49,7 @@
                         <span class="text-gray-600">{{ $applied_date }}</span>
                     </td>
                     <td class="p-3 font-medium capitalize">
-                        <x-application_status :application_status="$application->status" />
+                        <x-employer.application_status :application_status="$application->status" />
                     </td>
                     <td>
                         <div class="flex items-center justify-evenly">

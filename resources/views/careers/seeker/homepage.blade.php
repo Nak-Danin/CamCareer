@@ -1,4 +1,4 @@
-<x-master-layout>
+<x-layouts.master-layout>
     <!-- Desktop View -->
     <section class="hidden md:block relative z-10 bg-blue-900 min-h-[400px] md:h-[700px] w-full">
         <main class="hidden md:grid grid-cols-2 gap-12 absolute -translate-y-1/2 top-1/2 left-1/2 w-[85%] h-[500px] -translate-x-1/2">
@@ -53,7 +53,7 @@
             @endphp
             <div style="width: {{ $width }}px;" class="px-5 md:px-0 md:w-full flex md:grid grid-cols-4 gap-4 mt-4">
                 @foreach ($categories as $category)
-                <x-category href="/findjobs/filter?category={{ $category->category_id }}" :badge="$category->icon" :categoryName="$category->category_name" :jobs_count="$category->careers->count()" />
+                <x-seeker.category href="/findjobs/filter?category={{ $category->category_id }}" :badge="$category->icon" :categoryName="$category->category_name" :jobs_count="$category->careers->count()" />
                 @endforeach
             </div>
         </div>
@@ -65,7 +65,7 @@
         </div>
         <ul class="flex flex-col gap-4">
             @foreach ($featuredJobs as $featuredJob)
-            <x-featured_job_list :job="$featuredJob" :seeker="$seeker" />
+            <x-seeker.featured_job_list :job="$featuredJob" :seeker="$seeker" />
             @endforeach
         </ul>
         <div class="flex justify-center">
@@ -83,7 +83,7 @@
             @endphp
             <div style="width: {{ $fcWidth }}px;" class="flex md:w-full md:grid grid-cols-5 gap-4">
                 @foreach ($featuredCompanies as $featuredCompany)
-                <x-featured_company_list :company="$featuredCompany" />
+                <x-seeker.featured_company_list :company="$featuredCompany" />
                 @endforeach
             </div>
         </div>
@@ -95,4 +95,4 @@
             <a class="flex gap-2 text-blue-900 md:text-blue-800 px-6 py-2 bg-blue-100 md:bg-white w-fit font-medium rounded hover:bg-blue-800 hover:text-white border-2 border-blue-800 hover:border-gray-200 transition-all" href="#"><i class="fi fi-rr-upload"></i>Upload Resume</a>
         </div>
     </section>
-</x-master-layout>
+</x-layouts.master-layout>

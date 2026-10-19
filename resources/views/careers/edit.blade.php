@@ -1,11 +1,11 @@
-<x-employer-layout>
+<x-layouts.employer-layout>
     <x-slot:heading>
         Update Career
     </x-slot:heading>
 
     <div class="w-full mx-auto bg-white p-6 rounded-lg shadow mb-5">
         <template id="minus-btn-template">
-            <x-minus_btn />
+            <x-employer.minus_btn />
         </template>
         <form action="{{ route('careers.update',['career' => $career]) }}" method="POST" class="space-y-6">
             @csrf
@@ -14,7 +14,7 @@
             $visibleStatus = !$career->applications->contains('status', 'offered');
             @endphp
             <div class="grid {{ $visibleStatus? 'grid-cols-2' : 'grid-cols-1' }} gap-10 items-center">
-                <x-input-field
+                <x-shared.input-field
                     label="Job Title"
                     name="title"
                     maxlength="150"
@@ -42,7 +42,7 @@
             </div>
 
             <div class="grid grid-cols-2 gap-10 items-center">
-                <x-input-field
+                <x-shared.input-field
                     label="Salary Range"
                     name="salary_range"
                     value="{{ old('salary_range', 'Negotiable') }}" />
@@ -78,13 +78,13 @@
                 <div id="responsibilities-container" class="space-y-2">
                     @forelse(old('responsibilities', $career->responsibilities ?? []) as $responsibility)
                     <div class="flex gap-2 items-end item-row">
-                        <x-input-field name="responsibilities[]" value="{{ $responsibility }}" required />
-                        <x-minus_btn />
+                        <x-shared.input-field name="responsibilities[]" value="{{ $responsibility }}" required />
+                        <x-employer.minus_btn />
                     </div>
                     @empty
                     <div class="flex gap-2 items-end item-row">
-                        <x-input-field name="responsibilities[]" required />
-                        <x-minus_btn />
+                        <x-shared.input-field name="responsibilities[]" required />
+                        <x-employer.minus_btn />
                     </div>
                     @endforelse
                 </div>
@@ -102,13 +102,13 @@
                 <div id="requirements-container" class="space-y-2">
                     @forelse(old('requirements', $career->requirements ?? []) as $requirement)
                     <div class="flex gap-2 items-end item-row">
-                        <x-input-field name="requirements[]" value="{{ $requirement }}" required />
-                        <x-minus_btn />
+                        <x-shared.input-field name="requirements[]" value="{{ $requirement }}" required />
+                        <x-employer.minus_btn />
                     </div>
                     @empty
                     <div class="flex gap-2 items-end item-row">
-                        <x-input-field name="requirements[]" required />
-                        <x-minus_btn />
+                        <x-shared.input-field name="requirements[]" required />
+                        <x-employer.minus_btn />
                     </div>
                     @endforelse
                 </div>
@@ -126,13 +126,13 @@
                 <div id="benefits-container" class="space-y-2">
                     @forelse(old('benefits', $career->benefits ?? []) as $benefit)
                     <div class="flex gap-2 items-end item-row">
-                        <x-input-field name="benefits[]" value="{{ $benefit }}" required />
-                        <x-minus_btn />
+                        <x-shared.input-field name="benefits[]" value="{{ $benefit }}" required />
+                        <x-employer.minus_btn />
                     </div>
                     @empty
                     <div class="flex gap-2 items-end item-row">
-                        <x-input-field name="benefits[]" required />
-                        <x-minus_btn />
+                        <x-shared.input-field name="benefits[]" required />
+                        <x-employer.minus_btn />
                     </div>
                     @endforelse
                 </div>
@@ -143,7 +143,7 @@
                 </button>
             </div>
 
-            <x-input-field
+            <x-shared.input-field
                 label="Location"
                 name="location"
                 value="{{ old('location', $career->location) }}"
@@ -273,4 +273,4 @@
             });
         });
     </script>
-</x-employer-layout>
+</x-layouts.employer-layout>

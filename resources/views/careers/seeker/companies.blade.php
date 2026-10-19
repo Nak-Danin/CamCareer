@@ -1,4 +1,4 @@
-<x-master-layout>
+<x-layouts.master-layout>
     <main class="flex flex-col gap-5 px-4 md:px-0">
         <section class="w-full h-[500px] hidden md:flex flex-col justify-center items-center gap-10 bg-[#1C398E]">
             <h1 class="w-full md:w-[60%] text-heading font-semibold text-3xl md:text-6xl text-white text-center leading-8 md:leading-16">Discover Great Place to Work in Cambodia</h1>
@@ -6,9 +6,16 @@
         </section>
         <section class="md:px-20 pt-5 md:pt-15 flex flex-col gap-5 bg-[#F4F5F7]">
             <h1 class="text-heading text-2xl md:text-4xl">Featured Top Employers in Cambodia</h1>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-evenly w-full">
+            <div class="hidden md:block w-full overflow-x-scroll">
+                <div class="w-max p-2 flex gap-8 overflow-x-hidden">
+                    @foreach ($topCompanies as $topCompany)
+                    <x-seeker.company_card :company="$topCompany" />
+                    @endforeach
+                </div>
+            </div>
+            <div class="md:hidden flex flex-col gap-5">
                 @foreach ($topCompanies as $topCompany)
-                <x-company_card :company="$topCompany" />
+                <x-seeker.company_card :company="$topCompany" />
                 @endforeach
             </div>
         </section>
@@ -41,13 +48,13 @@
                         ">
 
                             {{-- Keyword --}}
-                            <x-input-field label="Company" name="company" :value="$filters['company'] ?? ''" placeholder="Apple.inc" />
+                            <x-shared.input-field label="Company" name="company" :value="$filters['company'] ?? ''" placeholder="Apple.inc" />
 
                             {{-- location --}}
-                            <x-input-field label="Location" name="location" :value="$filters['location'] ?? ''" placeholder="Remote, Hybrid, City..." />
+                            <x-shared.input-field label="Location" name="location" :value="$filters['location'] ?? ''" placeholder="Remote, Hybrid, City..." />
 
                             {{-- industry --}}
-                            <x-input-field label="Industry" name="industry" :value="$filters['industry'] ?? ''" placeholder="Technology, Education, Banking..." />
+                            <x-shared.input-field label="Industry" name="industry" :value="$filters['industry'] ?? ''" placeholder="Technology, Education, Banking..." />
                             <button type="submit"
                                 class="w-full bg-blue-800 hover:bg-blue-900 text-white text-sm font-medium
                                py-2.5 rounded-lg transition-colors">
@@ -75,7 +82,7 @@
                     {{-- Job cards --}}
                     <div class="space-y-4">
                         @forelse ($featuredCompanies as $company)
-                        <x-company_summary_list :company="$company" />
+                        <x-seeker.company_summary_list :company="$company" />
                         @empty
                         <div class="bg-white border border-gray-200 rounded-xl p-10 text-center text-gray-500">
                             No companys match your filters. Try adjusting them.
@@ -98,4 +105,4 @@
             filterTab.classList.toggle('hidden');
         });
     </script>
-</x-master-layout>
+</x-layouts.master-layout>

@@ -26,4 +26,9 @@ class SeekerCompanyController extends Controller
             ->appends($request->query());
         return view('careers.seeker.companies', compact('topCompanies', 'featuredCompanies', 'filters'));
     }
+
+    public function show(Company $company)
+    {
+        return view('careers.seeker.company_profile', compact('company'));
+    }
 }

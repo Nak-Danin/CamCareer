@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 
 $company = Auth::user()->company;
 ?>
-<x-master-layout>
+<x-layouts.master-layout>
     <main class="flex h-[calc(100vh-60px)] relative">
         <aside class=" flex flex-col justify-between absolute h-[calc(100vh-60px)] overflow-y-hidden top-0 left-0 w-1/5 bg-[#f3f3fd] border-r border-gray-200 px-3 pb-10">
             <main class="flex flex-col gap-5 pt-5">
@@ -16,11 +16,11 @@ $company = Auth::user()->company;
                     </div>
                 </div>
                 <div class="flex flex-col gap-3">
-                    <x-sidebar-link class="flex gap-3 items-center" href="{{ route('employer.dashboard') }}" :active="request()->is('employer/dashboard')"><i class="fa-solid fa-cubes"></i>Dashboard</x-sidebar-link>
-                    <x-sidebar-link class="flex gap-3 items-center" href="{{ route('employer.jobs') }}" :active="request()->is('employer/jobs')"><i class="fi fi-ss-briefcase"></i>Jobs</x-sidebar-link>
-                    <x-sidebar-link class="flex gap-3 items-center" href="{{ route('employer.candidates') }}" :active="request()->is('employer/candidates')"><i class="fi fi-sr-users"></i>Candidates</x-sidebar-link>
-                    <x-sidebar-link class="flex gap-3 items-center" href="{{ route('employer.interviews') }}" :active="request()->is('employer/interviews')"><i class="fi fi-ss-meeting"></i>Interviews</x-sidebar-link>
-                    <x-sidebar-link class="flex gap-3 items-center" href="{{ route('employer.settings') }}" :active="request()->is('employer/settings')"><i class="fi fi-rr-settings"></i>Settings</x-sidebar-link>
+                    <x-employer.sidebar-link class="flex gap-3 items-center" href="{{ route('employer.dashboard') }}" :active="request()->is('employer/dashboard')"><i class="fa-solid fa-cubes"></i>Dashboard</x-employer.sidebar-link>
+                    <x-employer.sidebar-link class="flex gap-3 items-center" href="{{ route('employer.jobs') }}" :active="request()->is('employer/jobs')"><i class="fi fi-ss-briefcase"></i>Jobs</x-employer.sidebar-link>
+                    <x-employer.sidebar-link class="flex gap-3 items-center" href="{{ route('employer.candidates') }}" :active="request()->is('employer/candidates')"><i class="fi fi-sr-users"></i>Candidates</x-employer.sidebar-link>
+                    <x-employer.sidebar-link class="flex gap-3 items-center" href="{{ route('employer.interviews') }}" :active="request()->is('employer/interviews')"><i class="fi fi-ss-meeting"></i>Interviews</x-employer.sidebar-link>
+                    <x-employer.sidebar-link class="flex gap-3 items-center" href="{{ route('employer.settings') }}" :active="request()->is('employer/settings')"><i class="fi fi-rr-settings"></i>Settings</x-employer.sidebar-link>
 
                 </div>
             </main>
@@ -41,4 +41,4 @@ $company = Auth::user()->company;
             {{ $slot }}
         </aside>
     </main>
-</x-master-layout>
+</x-layouts.master-layout>

@@ -12,7 +12,7 @@ $location = $company->location;
 $cover_pic = $company->cover_pic;
 $logo = $company->logo_url;
 @endphp
-<main class="w-full h-[400px] md:h-[500px] flex flex-col rounded-xl shadow shadow-gray-500">
+<main class="w-full md:w-100 h-100 md:h-125 flex flex-col rounded-xl shadow shadow-gray-500">
     <section class="relative w-full h-1/2">
         <div class="z-11 absolute bg-black w-full h-full opacity-30 rounded-t-xl"></div>
         <img class="z-10 absolute w-full h-full rounded-t-xl" src="{{ $cover_pic ?? Vite::asset('resources/images/company-cover.jpg') }}" alt="">
@@ -26,14 +26,14 @@ $logo = $company->logo_url;
             <div class="flex gap-2 items-center">
                 <img class="w-[60px] h-[60px] rounded-xl border-4 border-gray-300" src="{{ $logo ?? Vite::asset('resources/images/image.png') }}" alt="Company_logo">
                 <div class="flex flex-col">
-                    <h1 class="font-semibold text-2xl text-white text-shadow-md text-shadow-gray-500">{{ $company_name }}</h1>
+                    <h1 class="font-semibold text-xl md:text-2xl text-white text-shadow-md text-shadow-gray-500">{{ $company_name }}</h1>
                     <a class="font-medium text-sm text-gray-200" target="_blank" href="{{ $company_website }}">View Company Website <i class="fi fi-rr-share-square"></i></a>
                 </div>
             </div>
         </div>
     </section>
     <section class="h-1/2 w-full p-3 md:p-5 flex flex-col gap-5">
-        <p class="text-gray-600 text-lg line-clamp-2">
+        <p class="text-gray-600 text-lg line-clamp-2 font-serif">
             {{ $company_description }}
         </p>
         <div class="flex gap-3 items-center">

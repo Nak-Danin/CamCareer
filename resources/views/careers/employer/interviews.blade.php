@@ -1,4 +1,4 @@
-<x-employer-layout heading=''>
+<x-layouts.employer-layout heading=''>
     <div class="flex items-center justify-between mb-2">
         <div class="flex gap-4 items-center">
             <h1 class="text-heading">
@@ -47,7 +47,7 @@
             </div>
             <div class="grid grid-cols-3 gap-10">
                 @foreach ($career->applications as $application)
-                <x-interview_card :application='$application' />
+                <x-employer.interview_card :application='$application' />
                 @endforeach
             </div>
         </section>
@@ -59,4 +59,4 @@
         {{ request('type') === 'past' ? "There's no record of any past interview" : "Currently, there's no record of any upcoming interview" }}
     </span>
     @endif
-</x-employer-layout>
+</x-layouts.employer-layout>

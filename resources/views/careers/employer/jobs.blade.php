@@ -1,4 +1,4 @@
-<x-employer-layout heading="Manage Job Listings">
+<x-layouts.employer-layout heading="Manage Job Listings">
     <div class="flex justify-between items-baseline mb-6">
         <span class="text-description">Track, edit, and manage all your available and past job postings.</span>
 
@@ -23,7 +23,7 @@
     </div>
 
     {{-- Render ALL careers (no pagination needed) --}}
-    <x-job_table :careers="$paginateAll" />
+    <x-employer.job_table :careers="$paginateAll" />
     {{-- Filter Script --}}
     <script>
         function filterJobs(status, selectedBtn) {
@@ -47,4 +47,4 @@
             });
         }
     </script>
-</x-employer-layout>
+</x-layouts.employer-layout>

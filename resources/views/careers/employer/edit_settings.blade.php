@@ -1,4 +1,4 @@
-<x-employer-layout heading="">
+<x-layouts.employer-layout heading="">
     <div class="w-full mx-auto p-6 mb-6 bg-white rounded-xl shadow-md border border-gray-100">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Update Company Profile</h2>
 
@@ -15,28 +15,28 @@
             <div class="space-y-5">
                 <section class="flex justify-between gap-6">
                     {{-- 1. Company Name --}}
-                    <x-input-field
+                    <x-shared.input-field
                         label="Company Name"
                         name="company_name"
                         :value="old('company_name', $company->company_name)"
                         required />
 
                     {{-- 2. Industry --}}
-                    <x-input-field
+                    <x-shared.input-field
                         label="Industry"
                         name="industry"
                         :value="old('industry', $company->industry)" />
                 </section>
                 <section class="flex justify-between gap-6">
                     {{-- 3. Website --}}
-                    <x-input-field
+                    <x-shared.input-field
                         label="Website URL"
                         name="website"
                         type="text"
                         :value="old('website', $company->website)"
                         placeholder="https://example.com" />
                     {{-- 4. Location --}}
-                    <x-input-field
+                    <x-shared.input-field
                         label="Location"
                         name="location"
                         :value="old('location', $company->location)"
@@ -93,4 +93,4 @@
             </div>
         </form>
     </div>
-</x-employer-layout>
+</x-layouts.employer-layout>

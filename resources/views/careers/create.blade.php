@@ -1,16 +1,16 @@
-<x-employer-layout>
+<x-layouts.employer-layout>
     <x-slot:heading>
         Create Career
     </x-slot:heading>
 
     <div class="w-full mx-auto bg-white p-6 rounded-lg shadow">
         <template id="minus-button-template">
-            <x-minus_btn />
+            <x-employer.minus_btn />
         </template>
         <form action="{{ route('careers.store') }}" method="POST" class="space-y-6">
             @csrf
 
-            <x-input-field
+            <x-shared.input-field
                 label="Job Title"
                 name="title"
                 maxlength="150"
@@ -18,7 +18,7 @@
                 required />
 
             <div class="grid grid-cols-2 gap-10 items-center">
-                <x-input-field
+                <x-shared.input-field
                     label="Salary Range"
                     name="salary_range"
                     value="{{ old('salary_range', 'Negotiable') }}" />
@@ -49,8 +49,8 @@
 
                 <div id="responsibilities-container" class="space-y-2">
                     <div class="flex gap-2 items-end item-row">
-                        <x-input-field name="responsibilities[]" required />
-                        <x-minus_btn />
+                        <x-shared.input-field name="responsibilities[]" required />
+                        <x-employer.minus_btn />
                     </div>
                 </div>
 
@@ -65,8 +65,8 @@
 
                 <div id="requirements-container" class="space-y-2">
                     <div class="flex gap-2 items-end item-row">
-                        <x-input-field name="requirements[]" required />
-                        <x-minus_btn />
+                        <x-shared.input-field name="requirements[]" required />
+                        <x-employer.minus_btn />
                     </div>
                 </div>
 
@@ -81,8 +81,8 @@
 
                 <div id="benefits-container" class="space-y-2">
                     <div class="flex gap-2 items-end item-row">
-                        <x-input-field name="benefits[]" required />
-                        <x-minus_btn />
+                        <x-shared.input-field name="benefits[]" required />
+                        <x-employer.minus_btn />
                     </div>
                 </div>
 
@@ -92,7 +92,7 @@
                 </button>
             </div>
 
-            <x-input-field
+            <x-shared.input-field
                 label="Location"
                 name="location"
                 value="{{ old('location') }}"
@@ -203,4 +203,4 @@
             });
         });
     </script>
-</x-employer-layout>
+</x-layouts.employer-layout>

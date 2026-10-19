@@ -1,4 +1,4 @@
-<x-master-layout>
+<x-layouts.master-layout>
     <div class="w-full mx-auto px-5 md:px-10 py-8">
         <div class="grid grid-cols-1 md:grid-cols-[380px_1fr] gap-4 md:gap-8">
             {{-- ===================== FILTER SIDEBAR ===================== --}}
@@ -31,10 +31,10 @@
                         ">
 
                         {{-- Keyword --}}
-                        <x-input-field label="Keywords" name="keyword" :value="$filters['keyword'] ?? ''" placeholder="Job title, skills..." />
+                        <x-shared.input-field label="Keywords" name="keyword" :value="$filters['keyword'] ?? ''" placeholder="Job title, skills..." />
 
                         {{-- location --}}
-                        <x-input-field label="Location" name="location" :value="$filters['location'] ?? ''" placeholder="Remote, Hybrid, City..." />
+                        <x-shared.input-field label="Location" name="location" :value="$filters['location'] ?? ''" placeholder="Remote, Hybrid, City..." />
 
                         {{-- Category --}}
                         <div>
@@ -97,7 +97,7 @@
                 {{-- Job cards --}}
                 <div class="space-y-4">
                     @forelse ($careers as $career)
-                    <x-featured_job_list :job="$career" :seeker="$seeker" />
+                    <x-seeker.featured_job_list :job="$career" :seeker="$seeker" />
                     @empty
                     <div class="bg-white border border-gray-200 rounded-xl p-10 text-center text-gray-500">
                         No careers match your filters. Try adjusting them.
@@ -129,4 +129,4 @@
             });
         })
     </script>
-</x-master-layout>
+</x-layouts.master-layout>

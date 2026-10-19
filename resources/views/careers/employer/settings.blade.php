@@ -1,4 +1,4 @@
-<x-employer-layout heading="Employer Settings">
+<x-layouts.employer-layout heading="Employer Settings">
     <div class="flex flex-col gap-5">
         <section class="flex justify-between">
             <span class="text-description">Configure your organization's global preferences and team settings.</span>
@@ -17,23 +17,23 @@
                         </aside>
                         <div class="flex flex-col gap-5">
                             <div class="grid grid-cols-2 gap-5">
-                                <x-input-field disabled label="Company" name="companyName" :value="$company->company_name" />
-                                <x-input-field disabled label="Industry" name="companyIndustry" :value="$company->industry" />
+                                <x-shared.input-field disabled label="Company" name="companyName" :value="$company->company_name" />
+                                <x-shared.input-field disabled label="Industry" name="companyIndustry" :value="$company->industry" />
                             </div>
                             <div class="grid grid-cols-2 gap-5">
-                                <x-input-field disabled label="Location" name="location" :value="$company->location" />
+                                <x-shared.input-field disabled label="Location" name="location" :value="$company->location" />
                                 @php
                                 $regdate = \Carbon\Carbon::parse($company->created_at)->format('j F Y');
                                 @endphp
-                                <x-input-field disabled label="Register Date" name="created_at" :value="$regdate" />
+                                <x-shared.input-field disabled label="Register Date" name="created_at" :value="$regdate" />
                             </div>
                         </div>
                     </div>
                 </aside>
                 <aside class="border-2 border-gray-100 bg-white rounded-md flex flex-col gap-5 p-5 pb-10">
                     <h1 class="text-xl font-medium flex items-center gap-2"><i class="fi fi-rr-broken-chain-link-wrong text-blue-800"></i>Contact Info</h1>
-                    <x-input-field disabled label="Company Email" name="companyEmail" :value="$company->user->email" />
-                    <x-input-field disabled label="Website" name="website" :value="$company->website" />
+                    <x-shared.input-field disabled label="Company Email" name="companyEmail" :value="$company->user->email" />
+                    <x-shared.input-field disabled label="Website" name="website" :value="$company->website" />
                 </aside>
             </main>
         </section>
@@ -67,4 +67,4 @@
             </main>
         </section>
     </div>
-</x-employer-layout>
+</x-layouts.employer-layout>

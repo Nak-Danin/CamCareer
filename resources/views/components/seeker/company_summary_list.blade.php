@@ -34,8 +34,8 @@ $companyId = $company->company_id;
             </section>
         </div>
         <div class="flex flex-col gap-2 md:gap-0 md:grid grid-cols-[5fr_1fr]">
-            <span class="text-description text-sm font-serif">{{ $description }}</span>
-            <a class="w-full flex justify-end" href=""><button class="w-full md:w-fit px-3 py-2 text-lg md:text-sm md:py-1 bg-blue-800 text-white rounded-md">View Profile</button></a>
+            <span class="text-description text-sm font-serif line-clamp-3">{{ $description }}</span>
+            <a class="w-full flex justify-end" href="{{ route('seeker.company.show', ['company' => $company]) }}"><button class="w-full md:w-fit px-3 py-2 text-lg md:text-sm md:py-1 bg-blue-800 text-white rounded-md">View Profile</button></a>
         </div>
     </aside>
 </main>

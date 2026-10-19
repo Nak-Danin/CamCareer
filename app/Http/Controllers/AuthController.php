@@ -70,12 +70,13 @@ class AuthController extends Controller
             CareerSeeker::create([
                 'user_id' => $user->user_id,
                 'first_name' => $validated['first_name'],
-                'last_name' => $validated['last_name']
+                'last_name' => $validated['last_name'],
             ]);
         } elseif ($validated['role'] === 'employer') {
             Company::create([
                 'user_id' => $user->user_id,
-                'company_name' => $validated['company_name']
+                'company_name' => $validated['company_name'],
+                'slug' => Company::generateUniqueSlug($validated['company_name']),
             ]);
         }
         Auth::login($user);

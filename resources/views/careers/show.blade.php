@@ -1,4 +1,4 @@
-<x-master-layout heading="">
+<x-layouts.master-layout heading="">
     <main class="grid grid-cols-1 md:grid-cols-[2fr_1fr] md:gap-5 py-5 md:p-10">
         <section class="flex flex-col">
             <div class="flex flex-col gap-0 md:gap-5 w-full">
@@ -9,7 +9,7 @@
                     <span class="md:hidden">Back</span>
                 </a>
                 <section class="flex justify-between items-baseline md:bg-white p-3 md:p-5 md:border-2 md:border-gray-300 md:rounded-md">
-                    <x-job_heading :career="$career" />
+                    <x-shared.job_heading :career="$career" />
                     <div class="flex gap-3">
                         @if (!$isAlreadyApplied)
                         <form class="hidden md:block" action="{{ route('application.store', ['career' => $career]) }}" method="POST">
@@ -54,13 +54,13 @@
                         </section>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 px-5">
-                        <x-job_description_card
+                        <x-shared.job_description_card
                             title="Compensation"
                             :value=" $career->salary_range . ' (USD)'" />
-                        <x-job_description_card
+                        <x-shared.job_description_card
                             title="Employment Type"
                             :value="$career->career_type" />
-                        <x-job_description_card
+                        <x-shared.job_description_card
                             title="Location"
                             :value="$career->location" />
                     </div>
@@ -104,8 +104,8 @@
                 </div>
             </div>
             <div class="p-4 bg-white md:border-2 border-gray-300 md:rounded group">
-                <x-similar_jobs :category="$career->category" />
+                <x-seeker.similar_jobs :category="$career->category" />
             </div>
         </section>
     </main>
-</x-master-layout>
+</x-layouts.master-layout>

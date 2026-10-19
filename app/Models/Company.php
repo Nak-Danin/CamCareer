@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class Company extends Model
 {
@@ -29,7 +30,7 @@ class Company extends Model
     }
     public function scopeTopCompanies(Builder $query): Builder
     {
-        return $query->withCount('careers')->orderByDesc('careers_count')->limit(3);
+        return $query->withCount('careers')->orderByDesc('careers_count')->limit(5);
     }
     public function scopeLocation(Builder $query, ?string $location): Builder
     {
@@ -42,5 +43,24 @@ class Company extends Model
     public function scopeIndustry(Builder $query, ?string $industry): Builder
     {
         return $query->when($industry, fn($q) => $q->where('industry', 'like', "%{industry}%"));
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    public static function generateUniqueSlug(string $companyName): string
+    {
+        $baseSlug = Str::slug($companyName);
+        if ($baseSlug == '') {
+            $baseSlug = 'company';
+        }
+        $slug = $baseSlug;
+        $counter = 2;
+        while (static::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $counter++;
+        }
+        return $slug;
     }
 }

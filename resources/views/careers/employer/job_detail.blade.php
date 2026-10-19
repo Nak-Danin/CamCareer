@@ -1,9 +1,9 @@
-<x-employer-layout heading="">
+<x-layouts.employer-layout heading="">
     <div class="flex flex-col gap-5 w-full mb-5">
         <section class="flex justify-between items-center">
-            <x-job_heading :career="$career" />
+            <x-shared.job_heading :career="$career" />
             <div class="flex gap-3">
-                <x-button_link
+                <x-employer.button_link
                     link="{{ route('careers.edit',['career' => $career->slug]) }}"
                     id="btn-editjob"
                     styling="btn-warning"
@@ -26,7 +26,7 @@
                     </button>
                 </form>
                 @endif
-                <x-button_link
+                <x-employer.button_link
                     link="{{ route('employer.candidates.show',['career' => $career->slug]) }}"
                     id="btn-view-candidate"
                     styling="btn-primary"
@@ -35,15 +35,15 @@
             </div>
         </section>
         <section class="grid grid-cols-3 gap-10">
-            <x-metric-card
+            <x-employer.metric-card
                 title="TOTAl APPLICATIONS"
                 :value="$applicationsCount"
                 icon="fi fi-rr-document" />
-            <x-metric-card
+            <x-employer.metric-card
                 title="New Applications"
                 :value="$recentApplicationsCount"
                 icon="fi fi-rr-document" />
-            <x-metric-card
+            <x-employer.metric-card
                 title="Interviews Schedule"
                 :value="$interviewsCount"
                 icon="fi fi-rr-document" />
@@ -74,16 +74,16 @@
                 </section>
             </div>
             <div class="grid grid-cols-3 gap-5 p-5">
-                <x-job_description_card
+                <x-shared.job_description_card
                     title="Compensation"
                     :value="'$ ' . $career->salary_range . ' (USD)'" />
-                <x-job_description_card
+                <x-shared.job_description_card
                     title="Employment Type"
                     :value="$career->career_type" />
-                <x-job_description_card
+                <x-shared.job_description_card
                     title="Location"
                     :value="$career->location" />
             </div>
         </section>
     </div>
-</x-employer-layout>
+</x-layouts.employer-layout>

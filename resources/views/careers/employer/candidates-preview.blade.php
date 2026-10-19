@@ -1,4 +1,4 @@
-<x-employer-layout heading="Candidates Status">
+<x-layouts.employer-layout heading="Candidates Status">
     <h1 class="text-description">Manage each candidate's status for the following job posts.</h1>
     <ul class="flex flex-col gap-2">
         @foreach ($careers as $career)
@@ -26,4 +26,4 @@
         </a>
         @endforeach
     </ul>
-</x-employer-layout>
+</x-layouts.employer-layout>
