@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Vite;
 $company_name = $company->company_name;
 $company_website = $company->website;
 $company_description = $company->description;
-$company_careers_count = $company->careers->count();
+$company_careers_count = $company->careers()->availableCareers()->count();
 $industry = $company->industry;
 $location = $company->location;
 $cover_pic = $company->cover_pic;
@@ -41,8 +41,8 @@ $logo = $company->logo_url;
             <span class="px-2 py-1 bg-[#e9e9f7] text-mde md:text-lg text-gray-600 font-medium rounded">{{ $location }}</span>
         </div>
         <div class="grid grid-cols-[4fr_1fr] gap-3 w-full">
-            <a class="bg-blue-800 text-lg font-semibold text-center py-2 rounded-md text-white" href="">Browse {{ $company_careers_count }} Jobs</a>
-            <a class="py-2 flex items-center justify-center bg-gray-300 rounded-md" href=""><i class="fi fi-br-up-right-from-square text-xl"></i></a>
+            <a class="bg-blue-800 text-lg font-semibold text-center py-2 rounded-md text-white" href="{{ route('seeker.company.show', ['company' => $company]) }}#openJobs">Browse {{ $company_careers_count }} Jobs</a>
+            <a class="py-2 flex items-center justify-center bg-gray-300 rounded-md" href="{{ route('seeker.company.show', ['company' => $company]) }}"><i class="fi fi-br-up-right-from-square text-xl"></i></a>
         </div>
     </section>
 

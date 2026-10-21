@@ -31,6 +31,7 @@ class CompanyFactory extends Factory
         return [
             'user_id' => User::factory()->employer(),
             'company_name' => $company_name,
+            'slug' => Company::generateUniqueSlug($company_name),
             'website' => $clean_name . "@example." . $tld,
             'industry' => fake()->randomElement($industry),
             'logo_url' => fake()->imageUrl(200, 200, 'business'),

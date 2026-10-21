@@ -42,7 +42,7 @@ class Company extends Model
     }
     public function scopeIndustry(Builder $query, ?string $industry): Builder
     {
-        return $query->when($industry, fn($q) => $q->where('industry', 'like', "%{industry}%"));
+        return $query->when($industry, fn($q) => $q->where('industry', 'like', "%{$industry}%"));
     }
 
     public function getRouteKeyName(): string

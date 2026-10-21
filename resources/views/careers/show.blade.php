@@ -70,19 +70,19 @@
         <section class="flex flex-col md:gap-5 md:px-0 mt-13">
             <ul class="p-5 flex flex-col gap-4 bg-white md:rounded border-y-2 md:border-2 border-gray-300 font-medium text-gray-600/90">
                 <li class="text-xl text-black">Quick facts</li>
-                <li class="py-2 flex justify-between border-b border-gray-200">
+                <li class="py-2 flex justify-between border-b-2 border-gray-200">
                     <span>Salary Range</span>
                     <span class="text-black">{{ $career->salary_range }}</span>
                 </li>
-                <li class="py-2 flex justify-between border-b border-gray-200">
+                <li class="py-2 flex justify-between border-b-2 border-gray-200">
                     <span>Job Type</span>
                     <span class="capitalize text-black">{{ $career->career_type }}</span>
                 </li>
-                <li class="py-2 flex justify-between border-b border-gray-200">
+                <li class="py-2 flex justify-between border-b-2 border-gray-200">
                     <span>Category</span>
                     <span class="text-black">{{ $career->category->category_name }}</span>
                 </li>
-                <li class="py-2 flex justify-between border-b border-gray-200">
+                <li class="py-2 flex justify-between border-b-2 border-gray-200">
                     <span>Location</span>
                     <span class="text-black">{{ $career->location }}</span>
                 </li>

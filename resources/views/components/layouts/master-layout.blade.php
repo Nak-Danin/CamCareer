@@ -7,7 +7,7 @@ $company = Auth::user()->company;
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -85,7 +85,7 @@ $company = Auth::user()->company;
                     <x-seeker.nav-link href="/" :active="request()->is('/')">Home</x-seeker.nav-link>
                 </div>
                 <div class="flex justify-center">
-                    <x-seeker.nav-link href="findjobs" :active="request()->is('findjobs')">Find Jobs</x-seeker.nav-link>
+                    <x-seeker.nav-link href="/findjobs" :active="request()->is('findjobs')">Find Jobs</x-seeker.nav-link>
                 </div>
                 <div class="flex justify-center">
                     <x-seeker.nav-link href="/companies" :active="request()->is('companies')">Companies</x-seeker.nav-link>

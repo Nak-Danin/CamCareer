@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyFilterRequest;
 use App\Models\Company;
+use Illuminate\Support\Facades\Auth;
 
 class SeekerCompanyController extends Controller
 {
@@ -29,9 +30,11 @@ class SeekerCompanyController extends Controller
 
     public function show(Company $company)
     {
+        $seeker = Auth::user()->seeker;
         $totalJobsPost = $company->careers()->count();
-        $availableJobs = $company->careers()->availableCareers()->get();
+        $availableJobs = $company->careers()->availableCareers()->paginate(5);
         $availableJobsCount = $company->careers()->availableCareers()->count();
-        return view('careers.seeker.company_profile', compact('company', 'totalJobsPost', 'availableJobs', 'availableJobsCount'));
+        $similarCompanies = Company::query()->industry($company->industry)->where("company_id", "!=", $company->company_id)->get();
+        return view('careers.seeker.company_profile', compact('company', 'totalJobsPost', 'availableJobs', 'availableJobsCount', 'seeker', 'similarCompanies'));
     }
 }
