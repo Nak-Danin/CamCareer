@@ -1,7 +1,7 @@
 <x-layouts.master-layout>
     <!-- Desktop View -->
-    <section class="hidden md:block relative z-10 bg-blue-900 min-h-[400px] md:h-[700px] w-full">
-        <main class="hidden md:grid grid-cols-2 gap-12 absolute -translate-y-1/2 top-1/2 left-1/2 w-[85%] h-[500px] -translate-x-1/2">
+    <section class="hidden md:block relative z-10 bg-blue-900 min-h-100 md:h-175 w-full">
+        <main class="hidden md:grid grid-cols-2 gap-12 absolute -translate-y-1/2 top-1/2 left-1/2 w-[85%] h-125 -translate-x-1/2">
             <aside class="min-w-0 flex flex-col gap-10 justify-center">
                 <h1 class="text-heading text-5xl text-white">Empowering Careers in Cambodia.</h1>
                 <span class="text-lg text-gray-300 w-full md:w-[90%]">Access the Kingdom's most prestigious job opportunities and talent pool with Camcareer</span>
@@ -27,11 +27,11 @@
         <h1 class="text-heading text-2xl">Find your dream job in Cambodia</h1>
         <span class="text-description text-[16px]">Connecting high-level talent with Cambodia's leading enterprises.</span>
         <form class="bg-white border border-gray-300 rounded p-5 flex flex-col gap-3" action="#" method="GET">
-            <div class="relative h-[45px]">
+            <div class="relative h-11.25">
                 <input class="absolute top-0 left-0 py-2 ps-12 border border-gray-300 rounded text-description text-[16px] w-full" name="job_title" type="text" placeholder="Job title or Keyword">
                 <i class="absolute left-4 top-1/2 -translate-y-2/5 fi fi-rr-briefcase text-[16px]"></i>
             </div>
-            <div class="relative h-[45px]">
+            <div class="relative h-11.25">
                 <input class="absolute top-0 left-0 py-2 ps-12 border border-gray-300 rounded text-description text-[16px] w-full" name="location" type="text" placeholder="Location">
                 <i class="absolute left-4 top-1/2 -translate-y-2/5 fi fi-rs-marker text-[16px]"></i>
             </div>
@@ -81,7 +81,7 @@
             @php
             $fcWidth = $featuredCompanies->count() * 270;
             @endphp
-            <div style="width: {{ $fcWidth }}px;" class="flex md:w-full md:grid grid-cols-5 gap-4">
+            <div style="--mobile-width: {{ $fcWidth }}px;" class="flex w-(--mobile-width) md:w-full md:grid grid-cols-5 gap-4">
                 @foreach ($featuredCompanies as $featuredCompany)
                 <x-seeker.featured_company_list :company="$featuredCompany" />
                 @endforeach
@@ -89,7 +89,7 @@
         </div>
     </section>
     <section class="p-5 md:p-0">
-        <div class="bg-gray-800 px-5 py-10 rounded md:p-0 md:rounded-none md:bg-blue-900 md:h-[300px] w-full flex flex-col gap-4 justify-center items-center">
+        <div class="bg-gray-800 px-5 py-10 rounded md:p-0 md:rounded-none md:bg-blue-900 md:h-75 w-full flex flex-col gap-4 justify-center items-center">
             <h1 class="text-heading text-white text-2xl md:text-4xl text-center md:text-start">Land your next role faster</h1>
             <span class="md:w-1/2 text-gray-300 text-[16px] md:text-lg text-center">Upload your CV to be seen by HR and increase your chance of getting hired.</span>
             <a class="flex gap-2 text-blue-900 md:text-blue-800 px-6 py-2 bg-blue-100 md:bg-white w-fit font-medium rounded hover:bg-blue-800 hover:text-white border-2 border-blue-800 hover:border-gray-200 transition-all" href="#"><i class="fi fi-rr-upload"></i>Upload Resume</a>

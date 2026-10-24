@@ -26,8 +26,7 @@ class CareerFactory extends Factory
             'category_id' => Category::factory(),
             'title' => $title,
             'slug' => Str::slug($title) . '-' . fake()->unique()->numberBetween(2, 100),
-            'description' => fake()->paragraph(3, true),
-
+            'description' => fake()->randomElement(config('bio.careers')),
             // Storing as a proper PHP array for JSON columns
             'responsibilities' => [
                 'Design blueprints for planning and implementation',
@@ -48,7 +47,7 @@ class CareerFactory extends Factory
                 'Great communication skills with the ability to work under pressure'
             ],
 
-            'location' => fake()->randomElement(['Remote', 'Hybrid', fake()->city()]),
+            'location' => fake()->randomElement(['Remote', 'Hybrid', fake()->randomElement(config('cambodia.locations'))]),
             'salary_range' => fake()->randomElement(['Negotiable', '400 - 600', '800 - 1200']),
             'career_type' => fake()->randomElement(['full-time', 'part-time', 'internship', 'contract']),
             'status' => fake()->randomElement(['available', 'available', 'available', 'unavailable']),

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title', 150);
             $table->string('slug')->unique();
             $table->string('salary_range')->default('Negotiable');
-            $table->string('description');
+            $table->text('description');
             $table->json('responsibilities');
             $table->json('requirements');
             $table->json('benefits');

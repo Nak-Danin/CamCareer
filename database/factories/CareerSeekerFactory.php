@@ -22,9 +22,10 @@ class CareerSeekerFactory extends Factory
             'user_id' => User::factory(),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
+            'title' => fake()->jobTitle(),
+            'location' => fake()->randomElement(config('cambodia.locations')),
             'phone' => fake()->phoneNumber(),
-            'resume_url' => fake()->url(),
-            'bio' => fake()->paragraph(3),
+            'bio' => fake()->randomElement(config('bio.seekers')),
             'profile' => null,
         ];
     }

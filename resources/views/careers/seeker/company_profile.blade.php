@@ -15,7 +15,7 @@ $companyLogo = $company->logo_url;
             </aside>
             <aside class="hidden md:flex gap-3 justify-end text-sm md:text-base">
                 <span class="flex gap-1 items-center px-2 h-fit rounded bg-indigo-100 text-blue-800"><i class="fi fi-rr-shield-trust mt-1"></i> Verified Corporate Employer</span>
-                <span class="text-gray-700">Member since {{ Illuminate\Support\Facades\Date::parse($company->created_at)->format('M, Y') }}</span>
+                <span class="text-gray-700 italic">Member since {{ Illuminate\Support\Facades\Date::parse($company->created_at)->format('M, Y') }}</span>
             </aside>
         </section>
         <!-- Profile -->

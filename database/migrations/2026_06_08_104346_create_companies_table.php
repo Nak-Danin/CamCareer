@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('website')->nullable();
             $table->string('logo_url')->nullable();
             $table->string('location')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
